@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="AllTests (1)" project="Projeto_METI_111_FIM" tests="38" started="38" failures="0" errors="0" ignored="0">
+  <testsuite name="Projeto_METI_111_FIM.Projeto_METI_111_FIM.AllTests" time="42.624">
+    <testsuite name="JUnit Jupiter" time="42.624">
+      <testsuite name="ExcelDisplayTest" time="1.479">
+        <testcase name="testStartInstance()" classname="ExcelDisplayTest" time="1.102"/>
+        <testcase name="testGetSp()" classname="ExcelDisplayTest" time="0.001"/>
+        <testcase name="testSetSp()" classname="ExcelDisplayTest" time="0.003"/>
+        <testcase name="testGetJ()" classname="ExcelDisplayTest" time="0.001"/>
+        <testcase name="testSetJ()" classname="ExcelDisplayTest" time="0.003"/>
+        <testcase name="testExcelDisplayFileInvalid()" classname="ExcelDisplayTest" time="0.003"/>
+        <testcase name="testGetData()" classname="ExcelDisplayTest" time="0.0"/>
+        <testcase name="testExcelDisplayWorks()" classname="ExcelDisplayTest" time="0.199"/>
+        <testcase name="testExcelDisplayFileDontExists()" classname="ExcelDisplayTest" time="0.002"/>
+        <testcase name="testGetRecord()" classname="ExcelDisplayTest" time="0.156"/>
+        <testcase name="testGetInstance()" classname="ExcelDisplayTest" time="0.008"/>
+      </testsuite>
+      <testsuite name="RecordTest" time="0.534">
+        <testcase name="testGetCyclo()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetIsLongMethod()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetAtfd()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetPack()" classname="RecordTest" time="0.0"/>
+        <testcase name="testGetIsFeatureEnvy()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetMethodID()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetClasse()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetMethod()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetLaa()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetLoc()" classname="RecordTest" time="0.0"/>
+        <testcase name="testGetPmd()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetRegisto()" classname="RecordTest" time="0.001"/>
+        <testcase name="testGetIPlasma()" classname="RecordTest" time="0.001"/>
+        <testcase name="testRecordStringStringStringStringStringStringStringStringStringStringStringString()" classname="RecordTest" time="0.523"/>
+      </testsuite>
+      <testsuite name="OpenfileTest" time="0.187">
+        <testcase name="testBrowser()" classname="OpenfileTest" time="0.006"/>
+        <testcase name="testOpenfile()" classname="OpenfileTest" time="0.177"/>
+        <testcase name="testGetRecords()" classname="OpenfileTest" time="0.004"/>
+      </testsuite>
+      <testsuite name="RegraTest" time="0.011">
+        <testcase name="testGetEntao()" classname="RegraTest" time="0.0"/>
+        <testcase name="testGetSenao()" classname="RegraTest" time="0.001"/>
+        <testcase name="testGetOp()" classname="RegraTest" time="0.001"/>
+        <testcase name="testGetMetricas()" classname="RegraTest" time="0.0"/>
+        <testcase name="testGetVetor_metricas()" classname="RegraTest" time="0.009"/>
+      </testsuite>
+      <testsuite name="ResultDisplayTest" time="23.656">
+        <testcase name="testResultDisplayStringArrayListOfRegraArrayListOfRecordString()" classname="ResultDisplayTest" time="23.656"/>
+      </testsuite>
+      <testsuite name="Interface1Test" time="16.729">
+        <testcase name="testMain()" classname="Interface1Test" time="0.186"/>
+        <testcase name="testClickFinish()" classname="Interface1Test" time="16.543"/>
+      </testsuite>
+      <testsuite name="Interface3Test" time="0.028">
+        <testcase name="testAddFrameContent()" classname="Interface3Test" time="0.001"/>
+        <testcase name="testInterface3()" classname="Interface3Test" time="0.027"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testrun>
