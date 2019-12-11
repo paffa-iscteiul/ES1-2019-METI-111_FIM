@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ReadExcel.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">ReadExcel.java</span></div><h1>ReadExcel.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+/**
+* Esta classe permite a leitura do ficheiro excel
+*
+* @author  Pedro Fonseca, Fábio Cardoso, Filipa Gomes, Inês Gomes, Sofia Pérsio, Marco Silva
+*/
+public class ReadExcel {
+<span class="fc" id="L21">	private ArrayList&lt;Record&gt; records=new ArrayList&lt;Record&gt;();</span>
+	private Openfile of;
+	
+	private FileInputStream fis;
+	private int rowCount;
+	private int columnCount;
+	private ArrayList&lt;String&gt; columnNames;
+	private ArrayList&lt;String&gt; data;
+	private XSSFWorkbook workbook;
+<span class="fc" id="L30">	private static ReadExcel INSTANCE = null;</span>
+	
+	
+	/**
+	 * Construtor da classe
+	 * Recebe o Ficheiro Excel e a partir deste conta o nº de linhas e colunas de modo a
+	 * criar a matrix de informação que posteriormente irá ser introduzida no ExcelDisplay.java
+	 * @param excelF
+	 * @throws IOException
+	 */
+<span class="fc" id="L40">	public ReadExcel(File excelF) throws IOException{</span>
+<span class="fc" id="L41">		fis = new FileInputStream(excelF);</span>
+<span class="fc" id="L42">		columnNames = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L43">		data = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L44">		workbook = new XSSFWorkbook(fis);</span>
+<span class="fc" id="L45">		XSSFSheet firstSheet = workbook.getSheetAt(0);</span>
+<span class="fc" id="L46">		Iterator&lt;Row&gt; iterator = firstSheet.iterator();</span>
+<span class="fc" id="L47">		Row nextRow = iterator.next();</span>
+<span class="fc" id="L48">		this.rowCount = ((XSSFSheet) firstSheet).getLastRowNum();</span>
+<span class="fc" id="L49">		this.columnCount = nextRow.getLastCellNum();</span>
+<span class="fc" id="L50">		ReadFile();</span>
+<span class="fc" id="L51">  }</span>
+	/**
+	 * ReadFile() É uma função que armazena toda a informação do ficheiro Excel
+	 * nas listas de informação
+	 * @throws IOException 
+	 */
+	public void ReadFile() throws IOException {
+<span class="fc" id="L58">		XSSFSheet sheet = workbook.getSheetAt(0);</span>
+<span class="fc" id="L59">		Iterator&lt;Row&gt; rowIt = sheet.iterator();</span>
+<span class="fc" id="L60">		Boolean Titles = true;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		while(rowIt.hasNext()) {</span>
+<span class="fc" id="L62">			Row row = rowIt.next();</span>
+<span class="fc" id="L63">			Iterator&lt;Cell&gt; cellIterator = row.cellIterator();</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">			if(Titles == true) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">				while(cellIterator.hasNext()) {</span>
+<span class="fc" id="L66">					Cell cell = cellIterator.next();</span>
+<span class="fc" id="L67">					columnNames.add(cell.toString());</span>
+				}
+<span class="fc" id="L69">			}else {</span>
+<span class="fc" id="L70">				Record rec = new Record();</span>
+<span class="fc" id="L71">				int i=0;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">				while (cellIterator.hasNext()) {</span>
+<span class="fc" id="L73">					i++;</span>
+<span class="fc" id="L74">					Cell cell = cellIterator.next();</span>
+<span class="fc" id="L75">					rec.add(i, cell.toString());</span>
+<span class="fc" id="L76">					data.add(cell.toString());</span>
+				}
+<span class="fc" id="L78">				records.add(rec);</span>
+			}
+<span class="fc" id="L80">			Titles = false;</span>
+		}
+<span class="fc" id="L82">	}</span>
+	
+	/**
+	 * getColumnNames() Irá buscar toda a informação sobre os Titulos e 
+	 * converter de ArrayList para Vector
+	 * @return columnVector, são os títulos do excel, 1º Linha
+	 */
+	public String [] getColumnNames() {
+<span class="fc" id="L90">		String [] columnVector = new String [columnCount];</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">		for(int i = 0; i &lt; columnCount; i++) {</span>
+<span class="fc" id="L92">			columnVector [i] = columnNames.get(i);</span>
+		}
+<span class="fc" id="L94">	return columnVector;</span>
+	}
+	
+	/**
+	 * getData() Irá buscar toda a informação, sem contar com os titulos.
+	 * Para além de converter Arraylist em Matriz
+	 * @return Matriz de Data do Excel
+	 */
+	public String [] [] getData(){
+<span class="fc" id="L103">		String [] [] dataMatrix = new String [rowCount] [columnCount];</span>
+<span class="fc" id="L104">		int index = 0;</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">		for(int i = 0; i &lt; (rowCount); i++) {</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">			for(int j = 0; j &lt; columnCount; j++) {</span>
+<span class="fc" id="L107">				dataMatrix [i] [j] = this.data.get(index);</span>
+<span class="fc" id="L108">				index++;</span>
+			}
+		}
+<span class="fc" id="L111">		return dataMatrix;</span>
+	}
+	
+	/**
+	 * getRecord() Devolve lista de registos do excel
+	 * @return records lista de registos do excel
+	 */
+	public ArrayList&lt;Record&gt; getRecord() {
+<span class="fc" id="L119">		return records;</span>
+	}
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

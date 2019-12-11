@@ -1,0 +1,1269 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ResultDisplayTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">ResultDisplayTest.java</span></div><h1>ResultDisplayTest.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+<span class="fc" id="L12">public class ResultDisplayTest {</span>
+
+	ResultDisplay rd1, rd2;
+<span class="fc" id="L15">	ArrayList &lt;Regra&gt; regras = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L16">	ArrayList &lt;Record&gt; records = new ArrayList&lt;Record&gt;() ;</span>
+	
+	@BeforeEach
+	public void setUp() throws Exception {
+<span class="fc" id="L20">		regras = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L21">		records = new ArrayList&lt;Record&gt;() ;</span>
+<span class="fc" id="L22">		Regra r1 = new Regra(&quot;LOC &lt; 10&quot;,&quot;is_long_method = TRUE&quot;,&quot;is_long_method = FALSE&quot;);</span>
+<span class="fc" id="L23">		Regra r2 = new Regra(&quot;LOC &gt; 10&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L24">		regras.add(r1);</span>
+		//regras.add(r2);
+<span class="fc" id="L26">		Record r = new Record();</span>
+<span class="fc" id="L27">		r.add(1, &quot;1.0&quot;);</span>
+<span class="fc" id="L28">		r.add(2, &quot;fat&quot;);</span>
+<span class="fc" id="L29">		r.add(3, &quot;DocumentParseFixture&quot;);</span>
+<span class="fc" id="L30">		r.add(4, &quot;Output()&quot;);</span>
+<span class="fc" id="L31">		r.add(5, &quot;3.0&quot;);</span>
+<span class="fc" id="L32">		r.add(6, &quot;1.0&quot;);</span>
+<span class="fc" id="L33">		r.add(7, &quot;0.0&quot;);</span>
+<span class="fc" id="L34">		r.add(8, &quot;1.0&quot;);</span>
+<span class="fc" id="L35">		r.add(9, &quot;FALSE&quot;);</span>
+<span class="fc" id="L36">		r.add(10, &quot;FALSE&quot;);</span>
+<span class="fc" id="L37">		r.add(11, &quot;FALSE&quot;);</span>
+<span class="fc" id="L38">		r.add(12, &quot;FALSE&quot;);</span>
+<span class="fc" id="L39">		Record rr1 = new Record();</span>
+<span class="fc" id="L40">		rr1.add(1, &quot;2.0&quot;);</span>
+<span class="fc" id="L41">		rr1.add(2, &quot;fat&quot;);</span>
+<span class="fc" id="L42">		rr1.add(3, &quot;DocumentParseFixture&quot;);</span>
+<span class="fc" id="L43">		rr1.add(4, &quot;Structure()&quot;);</span>
+<span class="fc" id="L44">		rr1.add(5, &quot;3.0&quot;);</span>
+<span class="fc" id="L45">		rr1.add(6, &quot;1.0&quot;);</span>
+<span class="fc" id="L46">		rr1.add(7, &quot;0.0&quot;);</span>
+<span class="fc" id="L47">		rr1.add(8, &quot;1.0&quot;);</span>
+<span class="fc" id="L48">		rr1.add(9, &quot;FALSE&quot;);</span>
+<span class="fc" id="L49">		rr1.add(10, &quot;FALSE&quot;);</span>
+<span class="fc" id="L50">		rr1.add(11, &quot;FALSE&quot;);</span>
+<span class="fc" id="L51">		rr1.add(12, &quot;FALSE&quot;);</span>
+<span class="fc" id="L52">		records.add(r);</span>
+<span class="fc" id="L53">		records.add(rr1);</span>
+<span class="fc" id="L54">		rd1 = new ResultDisplay(&quot;Nome&quot;, regras, records);</span>
+<span class="fc" id="L55">	}</span>
+
+	@Test
+	public void testResultDisplayStringArrayListOfRegraArrayListOfRecordString() throws IOException {
+<span class="fc" id="L59">		String s = System.getProperty(&quot;user.dir&quot;);</span>
+<span class="fc" id="L60">		String a = s + &quot;\\files\\Long-Method.xlsl&quot;;</span>
+<span class="fc" id="L61">		rd2 = new ResultDisplay(a, regras, records,&quot;IF( LOC &lt; 10 ) THEN ( is_long_method = TRUE ) ELSE ( is_long_method = FALSE )&quot;);</span>
+<span class="fc" id="L62">		assertEquals(rd2.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L63">		ArrayList &lt;Regra&gt; regras5 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L64">		Regra r5 = new Regra(&quot;LOC &gt; 10&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L65">		regras5.add(r5);</span>
+<span class="fc" id="L66">		ResultDisplay rd5 = new ResultDisplay(a, regras5, records,&quot;IF( LOC &gt; 10 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L67">		assertEquals(rd5.getValue(),&quot;TRUE&quot;);		</span>
+<span class="fc" id="L68">		ArrayList &lt;Regra&gt; regras6 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L69">		Regra r6 = new Regra(&quot;CYCLO &gt; 10&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L70">		regras6.add(r6);</span>
+<span class="fc" id="L71">		ResultDisplay rd6 = new ResultDisplay(a, regras6, records,&quot;IF( CYCLO &gt; 10 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L72">		assertEquals(rd6.getValue(),&quot;TRUE&quot;);		</span>
+<span class="fc" id="L73">		ArrayList &lt;Regra&gt; regras7 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L74">		Regra r7 = new Regra(&quot;LOC &gt; 10 AND LAA &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L75">		regras7.add(r7);</span>
+<span class="fc" id="L76">		ResultDisplay rd7 = new ResultDisplay(a, regras7, records,&quot;IF( LOC &gt; 10 AND LAA &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L77">		assertEquals(rd7.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L78">		assertNotEquals(rd7.getValue(), &quot;FALSE&quot;);</span>
+<span class="fc" id="L79">		ArrayList &lt;Regra&gt; regras8 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L80">		Regra r8 = new Regra(&quot;CYCLO &lt; 10&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L81">		regras8.add(r8);</span>
+<span class="fc" id="L82">		ResultDisplay rd8 = new ResultDisplay(a, regras8, records,&quot;IF( CYCLO &lt; 10 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L83">		assertNotEquals(rd8.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L84">		ArrayList &lt;Regra&gt; regras9 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L85">		Regra r9 = new Regra(&quot;LAA &lt; 5&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L86">		regras9.add(r9);</span>
+<span class="fc" id="L87">		ResultDisplay rd9 = new ResultDisplay(a, regras9, records,&quot;IF( LAA &lt; 5 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L88">		assertNotEquals(rd9.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L89">		ArrayList &lt;Regra&gt; regras10 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L90">		Regra r10 = new Regra(&quot;LAA &gt; 5&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L91">		regras10.add(r10);</span>
+<span class="fc" id="L92">		ResultDisplay rd10 = new ResultDisplay(a, regras10, records,&quot;IF( LAA &gt; 5 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L93">		assertEquals(rd10.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L94">		ArrayList &lt;Regra&gt; regras11 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L95">		Regra r11 = new Regra(&quot;LAA &gt; 5 AND LAA &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L96">		regras11.add(r11);</span>
+<span class="fc" id="L97">		ResultDisplay rd11 = new ResultDisplay(a, regras11, records,&quot;IF( LAA &gt; 5 AND LAA &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L98">		assertEquals(rd11.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L99">		ArrayList &lt;Regra&gt; regras12 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L100">		Regra r12 = new Regra(&quot;LAA &gt; 5 AND CYCLO &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L101">		regras12.add(r12);</span>
+<span class="fc" id="L102">		ResultDisplay rd12 = new ResultDisplay(a, regras12, records,&quot;IF( LAA &gt; 5 AND CYCLO &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L103">		assertEquals(rd12.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L104">		ArrayList &lt;Regra&gt; regras13 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L105">		Regra r13 = new Regra(&quot;LAA &gt; 5 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L106">		regras12.add(r13);</span>
+<span class="fc" id="L107">		ResultDisplay rd13 = new ResultDisplay(a, regras13, records,&quot;IF( LAA &gt; 5 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L108">		assertNotEquals(rd13.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L109">		ArrayList &lt;Regra&gt; regras14 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L110">		Regra r14 = new Regra(&quot;LAA &gt; 5 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L111">		regras14.add(r14);</span>
+<span class="fc" id="L112">		ResultDisplay rd14 = new ResultDisplay(a, regras14, records,&quot;IF( LAA &gt; 5 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L113">		assertNotEquals(rd14.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L114">		ArrayList &lt;Regra&gt; regras15 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L115">		Regra r15 = new Regra(&quot;CYCLO &gt; 5 AND LAA &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L116">		regras15.add(r15);</span>
+<span class="fc" id="L117">		ResultDisplay rd15 = new ResultDisplay(a, regras15, records,&quot;IF( CYCLO &gt; 5 AND LAA &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L118">		assertEquals(rd15.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L119">		ArrayList &lt;Regra&gt; regras16 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L120">		Regra r16 = new Regra(&quot;CYCLO &gt; 5 AND CYCLO &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L121">		regras16.add(r16);</span>
+<span class="fc" id="L122">		ResultDisplay rd16 = new ResultDisplay(a, regras16, records,&quot;IF( CYCLO &gt; 5 AND CYCLO &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L123">		assertEquals(rd16.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L124">		ArrayList &lt;Regra&gt; regras17 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L125">		Regra r17 = new Regra(&quot;CYCLO &gt; 5 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L126">		regras17.add(r17);</span>
+<span class="fc" id="L127">		ResultDisplay rd17 = new ResultDisplay(a, regras17, records,&quot;IF( CYCLO &gt; 5 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L128">		assertNotEquals(rd17.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L129">		ArrayList &lt;Regra&gt; regras18 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L130">		Regra r18 = new Regra(&quot;CYCLO &gt; 5 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L131">		regras18.add(r18);</span>
+<span class="fc" id="L132">		ResultDisplay rd18 = new ResultDisplay(a, regras18, records,&quot;IF( CYCLO &gt; 5 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L133">		assertNotEquals(rd18.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L134">		ArrayList &lt;Regra&gt; regras19 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L135">		Regra r19 = new Regra(&quot;CYCLO &lt; 5 AND LOC &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L136">		regras19.add(r19);</span>
+<span class="fc" id="L137">		ResultDisplay rd19 = new ResultDisplay(a, regras19, records,&quot;IF( CYCLO &lt; 5 AND LOC &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L138">		assertNotEquals(rd19.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L139">		ArrayList &lt;Regra&gt; regras20 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L140">		Regra r20 = new Regra(&quot;ATFD &lt; 5 AND LAA &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L141">		regras20.add(r20);</span>
+<span class="fc" id="L142">		ResultDisplay rd20 = new ResultDisplay(a, regras20, records,&quot;IF( ATFD &lt; 5 AND LAA &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L143">		assertEquals(rd20.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L144">		ArrayList &lt;Regra&gt; regras21 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L145">		Regra r21 = new Regra(&quot;ATFD &gt; 5 AND CYCLO &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L146">		regras21.add(r21);</span>
+<span class="fc" id="L147">		ResultDisplay rd21 = new ResultDisplay(a, regras21, records,&quot;IF( ATFD &gt; 5 AND CYCLO &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L148">		assertEquals(rd21.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L149">		ArrayList &lt;Regra&gt; regras22 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L150">		Regra r22 = new Regra(&quot;ATFD &gt; 5 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L151">		regras22.add(r22);</span>
+<span class="fc" id="L152">		ResultDisplay rd22 = new ResultDisplay(a, regras22, records,&quot;IF( ATFD &gt; 5 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L153">		assertNotEquals(rd22.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L154">		ArrayList &lt;Regra&gt; regras23 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L155">		Regra r23 = new Regra(&quot;ATFD &lt; 5 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L156">		regras23.add(r23);</span>
+<span class="fc" id="L157">		ResultDisplay rd23 = new ResultDisplay(a, regras23, records,&quot;IF( ATFD &lt; 5 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L158">		assertNotEquals(rd23.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L159">		ArrayList &lt;Regra&gt; regras24 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L160">		Regra r24 = new Regra(&quot;ATFD &lt; 5 AND ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L161">		regras24.add(r24);</span>
+<span class="fc" id="L162">		ResultDisplay rd24 = new ResultDisplay(a, regras24, records,&quot;IF( ATFD &lt; 5 AND ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L163">		assertNotEquals(rd24.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L164">		ArrayList &lt;Regra&gt; regras25 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L165">		Regra r25 = new Regra(&quot;LOC &gt; 5 AND LAA &gt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L166">		regras25.add(r25);</span>
+<span class="fc" id="L167">		ResultDisplay rd25 = new ResultDisplay(a, regras25, records,&quot;IF( LOC &gt; 5 AND LAA &gt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L168">		assertEquals(rd25.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L169">		ArrayList &lt;Regra&gt; regras26 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L170">		Regra r26 = new Regra(&quot;LOC &lt; 5 AND CYCLO &gt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L171">		regras26.add(r26);</span>
+<span class="fc" id="L172">		ResultDisplay rd26 = new ResultDisplay(a, regras26, records,&quot;IF( LOC &lt; 5 AND CYCLO &gt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L173">		assertNotEquals(rd26.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L174">		ArrayList &lt;Regra&gt; regras27 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L175">		Regra r27 = new Regra(&quot;LOC &lt; 5 AND ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L176">		regras27.add(r27);</span>
+<span class="fc" id="L177">		ResultDisplay rd27 = new ResultDisplay(a, regras27, records,&quot;IF( LOC &lt; 5 AND ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L178">		assertNotEquals(rd27.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L179">		ArrayList &lt;Regra&gt; regras28 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L180">		Regra r28 = new Regra(&quot;LOC &gt; 5 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L181">		regras28.add(r28);</span>
+<span class="fc" id="L182">		ResultDisplay rd28 = new ResultDisplay(a, regras28, records,&quot;IF( LOC &gt; 5 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L183">		assertNotEquals(rd28.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L184">		ArrayList &lt;Regra&gt; regras29 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L185">		Regra r29 = new Regra(&quot;LOC &gt; 5 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L186">		regras29.add(r29);</span>
+<span class="fc" id="L187">		ResultDisplay rd29 = new ResultDisplay(a, regras29, records,&quot;IF( LOC &gt; 5 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L188">		assertNotEquals(rd29.getValue(),&quot;FALSE&quot;);</span>
+
+<span class="fc" id="L190">		ArrayList &lt;Regra&gt; regras30 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L191">		Regra r30 = new Regra(&quot;LAA &gt; 5 AND LAA &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L192">		regras30.add(r30);</span>
+<span class="fc" id="L193">		ResultDisplay rd30 = new ResultDisplay(a, regras30, records,&quot;IF( LAA &gt; 5 OR LAA &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L194">		assertNotEquals(rd30.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L195">		ArrayList &lt;Regra&gt; regras31 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L196">		Regra r31 = new Regra(&quot;LAA &gt; 5 OR CYCLO &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L197">		regras31.add(r31);</span>
+<span class="fc" id="L198">		ResultDisplay rd31 = new ResultDisplay(a, regras31, records,&quot;IF( LAA &gt; 5 OR CYCLO &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L199">		assertEquals(rd31.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L200">		ArrayList &lt;Regra&gt; regras32 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L201">		Regra r32 = new Regra(&quot;LAA &gt; 5 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L202">		regras32.add(r32);</span>
+<span class="fc" id="L203">		ResultDisplay rd32 = new ResultDisplay(a, regras32, records,&quot;IF( LAA &gt; 5 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L204">		assertNotEquals(rd32.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L205">		ArrayList &lt;Regra&gt; regras33 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L206">		Regra r33 = new Regra(&quot;LAA &gt; 5 OR LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L207">		regras33.add(r33);</span>
+<span class="fc" id="L208">		ResultDisplay rd33 = new ResultDisplay(a, regras33, records,&quot;IF( LAA &gt; 5 OR LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L209">		assertNotEquals(rd33.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L210">		ArrayList &lt;Regra&gt; regras34 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L211">		Regra r34 = new Regra(&quot;CYCLO &gt; 5 OR LAA &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L212">		regras15.add(r34);</span>
+<span class="fc" id="L213">		ResultDisplay rd34 = new ResultDisplay(a, regras34, records,&quot;IF( CYCLO &gt; 5 OR LAA &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L214">		assertNotEquals(rd34.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L215">		ArrayList &lt;Regra&gt; regras35 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L216">		Regra r35 = new Regra(&quot;CYCLO &gt; 5 OR CYCLO &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L217">		regras35.add(r35);</span>
+<span class="fc" id="L218">		ResultDisplay rd35 = new ResultDisplay(a, regras35, records,&quot;IF( CYCLO &gt; 5 OR CYCLO &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L219">		assertEquals(rd35.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L220">		ArrayList &lt;Regra&gt; regras36 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L221">		Regra r36 = new Regra(&quot;CYCLO &gt; 5 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L222">		regras36.add(r36);</span>
+<span class="fc" id="L223">		ResultDisplay rd36 = new ResultDisplay(a, regras36, records,&quot;IF( CYCLO &gt; 5 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L224">		assertNotEquals(rd36.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L225">		ArrayList &lt;Regra&gt; regras37 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L226">		Regra r37 = new Regra(&quot;CYCLO &gt; 5 OR LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L227">		regras37.add(r37);</span>
+<span class="fc" id="L228">		ResultDisplay rd37 = new ResultDisplay(a, regras37, records,&quot;IF( CYCLO &gt; 5 OR LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L229">		assertNotEquals(rd37.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L230">		ArrayList &lt;Regra&gt; regras38 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L231">		Regra r38 = new Regra(&quot;CYCLO &lt; 5 OR LOC &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L232">		regras19.add(r38);</span>
+<span class="fc" id="L233">		ResultDisplay rd38 = new ResultDisplay(a, regras38, records,&quot;IF( CYCLO &lt; 5 OR LOC &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L234">		assertNotEquals(rd38.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L235">		ArrayList &lt;Regra&gt; regras39 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L236">		Regra r39 = new Regra(&quot;ATFD &lt; 5 OR LAA &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L237">		regras39.add(r39);</span>
+<span class="fc" id="L238">		ResultDisplay rd39 = new ResultDisplay(a, regras39, records,&quot;IF( ATFD &lt; 5 OR LAA &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L239">		assertNotEquals(rd39.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L240">		ArrayList &lt;Regra&gt; regras40 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L241">		Regra r40 = new Regra(&quot;ATFD &gt; 5 OR CYCLO &lt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L242">		regras40.add(r40);</span>
+<span class="fc" id="L243">		ResultDisplay rd40 = new ResultDisplay(a, regras40, records,&quot;IF( ATFD &gt; 5 OR CYCLO &lt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L244">		assertEquals(rd40.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L245">		ArrayList &lt;Regra&gt; regras41 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L246">		Regra r41 = new Regra(&quot;ATFD &gt; 5 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L247">		regras41.add(r41);</span>
+<span class="fc" id="L248">		ResultDisplay rd41 = new ResultDisplay(a, regras41, records,&quot;IF( ATFD &gt; 5 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L249">		assertNotEquals(rd41.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L250">		ArrayList &lt;Regra&gt; regras42 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L251">		Regra r42 = new Regra(&quot;ATFD &lt; 5 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L252">		regras42.add(r42);</span>
+<span class="fc" id="L253">		ResultDisplay rd42 = new ResultDisplay(a, regras42, records,&quot;IF( ATFD &lt; 5 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L254">		assertNotEquals(rd42.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L255">		ArrayList &lt;Regra&gt; regras43 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L256">		Regra r43 = new Regra(&quot;ATFD &lt; 5 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L257">		regras43.add(r43);</span>
+<span class="fc" id="L258">		ResultDisplay rd43 = new ResultDisplay(a, regras43, records,&quot;IF( ATFD &lt; 5 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L259">		assertNotEquals(rd43.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L260">		ArrayList &lt;Regra&gt; regras44 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L261">		Regra r44 = new Regra(&quot;LOC &gt; 5 OR LAA &gt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L262">		regras44.add(r44);</span>
+<span class="fc" id="L263">		ResultDisplay rd44 = new ResultDisplay(a, regras44, records,&quot;IF( LOC &gt; 5 OR LAA &gt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L264">		assertNotEquals(rd44.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L265">		ArrayList &lt;Regra&gt; regras45 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L266">		Regra r45 = new Regra(&quot;LOC &lt; 5 OR CYCLO &gt; 0&quot;,&quot;is_long_method = FALSE&quot;,&quot;is_long_method = TRUE&quot;);</span>
+<span class="fc" id="L267">		regras45.add(r45);</span>
+<span class="fc" id="L268">		ResultDisplay rd45 = new ResultDisplay(a, regras45, records,&quot;IF( LOC &lt; 5 OR CYCLO &gt; 0 ) THEN ( is_long_method = FALSE ) ELSE ( is_long_method = TRUE )&quot;);</span>
+<span class="fc" id="L269">		assertNotEquals(rd45.getValue(),&quot;TRUE&quot;);</span>
+<span class="fc" id="L270">		ArrayList &lt;Regra&gt; regras46 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L271">		Regra r46 = new Regra(&quot;LOC &lt; 5 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L272">		regras46.add(r46);</span>
+<span class="fc" id="L273">		ResultDisplay rd46 = new ResultDisplay(a, regras46, records,&quot;IF( LOC &lt; 5 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L274">		assertNotEquals(rd46.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L275">		ArrayList &lt;Regra&gt; regras47 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L276">		Regra r47 = new Regra(&quot;LOC &gt; 5 OR LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L277">		regras47.add(r47);</span>
+<span class="fc" id="L278">		ResultDisplay rd47 = new ResultDisplay(a, regras47, records,&quot;IF( LOC &gt; 5 OR LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L279">		assertNotEquals(rd47.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L280">		ArrayList &lt;Regra&gt; regras48 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L281">		Regra r48 = new Regra(&quot;LOC &gt; 5 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L282">		regras48.add(r48);</span>
+<span class="fc" id="L283">		ResultDisplay rd48 = new ResultDisplay(a, regras48, records,&quot;IF( LOC &gt; 5 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L284">		assertNotEquals(rd48.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L285">		ArrayList &lt;Regra&gt; regras49 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L286">		Regra r49 = new Regra(&quot;LAA &lt; 5000 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L287">		regras49.add(r49);</span>
+<span class="fc" id="L288">		ResultDisplay rd49 = new ResultDisplay(a, regras49, records,&quot;IF( LAA &lt; 5000 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L289">		assertNotEquals(rd49.getValue(),&quot;FALSE&quot;);		</span>
+<span class="fc" id="L290">		ArrayList &lt;Regra&gt; regras50 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L291">		Regra r50 = new Regra(&quot;LAA &lt; 0 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L292">		regras50.add(r50);</span>
+<span class="fc" id="L293">		ResultDisplay rd50 = new ResultDisplay(a, regras50, records,&quot;IF( LAA &lt; 0 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L294">		assertNotEquals(rd50.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L295">		ArrayList &lt;Regra&gt; regras51 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L296">		Regra r51 = new Regra(&quot;LAA &lt; 0 OR LAA &gt; 5555&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L297">		regras51.add(r51);</span>
+<span class="fc" id="L298">		ResultDisplay rd51 = new ResultDisplay(a, regras51, records,&quot;IF( LAA &lt; 0 OR LAA &gt; 5555 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L299">		assertNotEquals(rd51.getValue(),&quot;FALSE&quot;);		</span>
+<span class="fc" id="L300">		ArrayList &lt;Regra&gt; regras52 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L301">		Regra r52 = new Regra(&quot;LAA &lt; 0 OR LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L302">		regras52.add(r52);</span>
+<span class="fc" id="L303">		ResultDisplay rd52 = new ResultDisplay(a, regras52, records,&quot;IF( LAA &lt; 0 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L304">		assertNotEquals(rd52.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L305">		ArrayList &lt;Regra&gt; regras53 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L306">		Regra r53 = new Regra(&quot;LAA &lt; 5000 OR LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L307">		regras53.add(r53);</span>
+<span class="fc" id="L308">		ResultDisplay rd53 = new ResultDisplay(a, regras53, records,&quot;IF( LAA &lt; 5000 OR LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L309">		assertNotEquals(rd53.getValue(),&quot;FALSE&quot;);	</span>
+<span class="fc" id="L310">		ArrayList &lt;Regra&gt; regras54 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L311">		Regra r54 = new Regra(&quot;LAA &gt; 0 OR LAA &lt; 5000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L312">		regras54.add(r54);</span>
+<span class="fc" id="L313">		ResultDisplay rd54 = new ResultDisplay(a, regras54, records,&quot;IF( LAA &gt; 0 OR LAA &lt; 5000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L314">		assertNotEquals(rd54.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L315">		ArrayList &lt;Regra&gt; regras55 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L316">		Regra r55 = new Regra(&quot;LAA &gt; 5000 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L317">		regras55.add(r55);</span>
+<span class="fc" id="L318">		ResultDisplay rd55 = new ResultDisplay(a, regras55, records,&quot;IF( LAA &gt; 5000 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L319">		assertNotEquals(rd55.getValue(),&quot;FALSE&quot;);</span>
+<span class="fc" id="L320">		ArrayList &lt;Regra&gt; regras56 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L321">		Regra r56 = new Regra(&quot;LAA &gt; 5000 OR LAA &gt; 6000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L322">		regras56.add(r56);</span>
+<span class="fc" id="L323">		ResultDisplay rd56 = new ResultDisplay(a, regras56, records,&quot;IF( LAA &gt; 5000 OR LAA &gt; 6000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L324">		ArrayList &lt;Regra&gt; regras57 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L325">		Regra r57 = new Regra(&quot;LAA &gt; 5000 OR LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L326">		regras57.add(r57);</span>
+<span class="fc" id="L327">		ResultDisplay rd57 = new ResultDisplay(a, regras57, records,&quot;IF( LAA &gt; 5000 OR LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L328">		ArrayList &lt;Regra&gt; regras58 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L329">		Regra r58 = new Regra(&quot;LAA &lt; 0 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L330">		regras58.add(r58);</span>
+<span class="fc" id="L331">		ResultDisplay rd58 = new ResultDisplay(a, regras58, records,&quot;IF( LAA &lt; 0 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L332">		ArrayList &lt;Regra&gt; regras59 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L333">		Regra r59 = new Regra(&quot;LAA &lt; 5500 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L334">		regras59.add(r59);</span>
+<span class="fc" id="L335">		ResultDisplay rd59 = new ResultDisplay(a, regras59, records,&quot;IF( LAA &lt; 5500 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L336">		ArrayList &lt;Regra&gt; regras60 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L337">		Regra r60 = new Regra(&quot;LAA &lt; 0 OR LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L338">		regras60.add(r60);</span>
+<span class="fc" id="L339">		ResultDisplay rd60 = new ResultDisplay(a, regras60, records,&quot;IF( LAA &lt; 0 OR LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L340">		ArrayList &lt;Regra&gt; regras61 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L341">		Regra r61 = new Regra(&quot;LAA &lt; 66000 OR LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L342">		regras61.add(r61);</span>
+<span class="fc" id="L343">		ResultDisplay rd61 = new ResultDisplay(a, regras61, records,&quot;IF( LAA &lt; 66000 OR LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L344">		ArrayList &lt;Regra&gt; regras62 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L345">		Regra r62 = new Regra(&quot;LAA &gt; 66000 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L346">		regras62.add(r62);</span>
+<span class="fc" id="L347">		ResultDisplay rd62 = new ResultDisplay(a, regras62, records,&quot;IF( LAA &gt; 66000 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L348">		ArrayList &lt;Regra&gt; regras63 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L349">		Regra r63 = new Regra(&quot;LAA &gt; 0 OR LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L350">		regras63.add(r63);</span>
+<span class="fc" id="L351">		ResultDisplay rd63 = new ResultDisplay(a, regras63, records,&quot;IF( LAA &gt; 0 OR LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L352">		ArrayList &lt;Regra&gt; regras64 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L353">		Regra r64 = new Regra(&quot;LAA &gt; 5500 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L354">		regras64.add(r64);</span>
+<span class="fc" id="L355">		ResultDisplay rd64 = new ResultDisplay(a, regras64, records,&quot;IF( LAA &gt; 5500 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L356">		ArrayList &lt;Regra&gt; regras65 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L357">		Regra r65 = new Regra(&quot;LAA &gt; 0 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L358">		regras65.add(r65);</span>
+<span class="fc" id="L359">		ResultDisplay rd65 = new ResultDisplay(a, regras65, records,&quot;IF( LAA &gt; 0 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L361">		ArrayList &lt;Regra&gt; regras66 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L362">		Regra r66 = new Regra(&quot;LAA &lt; 0 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L363">		regras66.add(r66);</span>
+<span class="fc" id="L364">		ResultDisplay rd66 = new ResultDisplay(a, regras66, records,&quot;IF( LAA &lt; 0 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L365">		ArrayList &lt;Regra&gt; regras67 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L366">		Regra r67 = new Regra(&quot;LAA &lt; 5500 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L367">		regras67.add(r67);</span>
+<span class="fc" id="L368">		ResultDisplay rd67 = new ResultDisplay(a, regras67, records,&quot;IF( LAA &lt; 5500 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L369">		ArrayList &lt;Regra&gt; regras68 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L370">		Regra r68 = new Regra(&quot;LAA &lt; 0 OR CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L371">		regras68.add(r68);</span>
+<span class="fc" id="L372">		ResultDisplay rd68 = new ResultDisplay(a, regras68, records,&quot;IF( LAA &lt; 0 OR CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L373">		ArrayList &lt;Regra&gt; regras69 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L374">		Regra r69 = new Regra(&quot;LAA &lt; 66000 OR CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L375">		regras69.add(r69);</span>
+<span class="fc" id="L376">		ResultDisplay rd69 = new ResultDisplay(a, regras69, records,&quot;IF( LAA &lt; 66000 OR CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L377">		ArrayList &lt;Regra&gt; regras70 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L378">		Regra r70 = new Regra(&quot;LAA &gt; 66000 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L379">		regras70.add(r70);</span>
+<span class="fc" id="L380">		ResultDisplay rd70 = new ResultDisplay(a, regras70, records,&quot;IF( LAA &gt; 66000 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L381">		ArrayList &lt;Regra&gt; regras71 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L382">		Regra r71 = new Regra(&quot;LAA &gt; 0 OR CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L383">		regras71.add(r71);</span>
+<span class="fc" id="L384">		ResultDisplay rd71 = new ResultDisplay(a, regras71, records,&quot;IF( LAA &gt; 0 OR CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L385">		ArrayList &lt;Regra&gt; regras72 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L386">		Regra r72 = new Regra(&quot;LAA &gt; 5500 OR CYCLO &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L387">		regras72.add(r72);</span>
+<span class="fc" id="L388">		ResultDisplay rd72 = new ResultDisplay(a, regras72, records,&quot;IF( LAA &gt; 5500 OR CYCLO &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L389">		ArrayList &lt;Regra&gt; regras73 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L390">		Regra r73 = new Regra(&quot;LAA &gt; 0 OR CYCLO &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L391">		regras73.add(r73);</span>
+<span class="fc" id="L392">		ResultDisplay rd73 = new ResultDisplay(a, regras73, records,&quot;IF( LAA &gt; 0 OR CYCLO &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L394">		ArrayList &lt;Regra&gt; regras74 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L395">		Regra r74 = new Regra(&quot;LAA &lt; 0 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L396">		regras74.add(r74);</span>
+<span class="fc" id="L397">		ResultDisplay rd74 = new ResultDisplay(a, regras74, records,&quot;IF( LAA &lt; 0 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L398">		ArrayList &lt;Regra&gt; regras75 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L399">		Regra r75 = new Regra(&quot;LAA &lt; 5500 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L400">		regras75.add(r75);</span>
+<span class="fc" id="L401">		ResultDisplay rd75 = new ResultDisplay(a, regras75, records,&quot;IF( LAA &lt; 5500 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L402">		ArrayList &lt;Regra&gt; regras76 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L403">		Regra r76 = new Regra(&quot;LAA &lt; 0 OR ATFD &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L404">		regras76.add(r76);</span>
+<span class="fc" id="L405">		ResultDisplay rd76 = new ResultDisplay(a, regras76, records,&quot;IF( LAA &lt; 0 OR ATFD &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L406">		ArrayList &lt;Regra&gt; regras77 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L407">		Regra r77 = new Regra(&quot;LAA &lt; 66000 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L408">		regras77.add(r77);</span>
+<span class="fc" id="L409">		ResultDisplay rd77 = new ResultDisplay(a, regras77, records,&quot;IF( LAA &lt; 66000 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L410">		ArrayList &lt;Regra&gt; regras78 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L411">		Regra r78 = new Regra(&quot;LAA &gt; 66000 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L412">		regras78.add(r78);</span>
+<span class="fc" id="L413">		ResultDisplay rd78 = new ResultDisplay(a, regras78, records,&quot;IF( LAA &gt; 66000 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L414">		ArrayList &lt;Regra&gt; regras79 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L415">		Regra r79 = new Regra(&quot;LAA &gt; 0 OR ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L416">		regras79.add(r79);</span>
+<span class="fc" id="L417">		ResultDisplay rd79 = new ResultDisplay(a, regras79, records,&quot;IF( LAA &gt; 0 OR ATFD &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L418">		ArrayList &lt;Regra&gt; regras80 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L419">		Regra r80 = new Regra(&quot;LAA &gt; 5500 OR ATFD &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L420">		regras80.add(r80);</span>
+<span class="fc" id="L421">		ResultDisplay rd80 = new ResultDisplay(a, regras80, records,&quot;IF( LAA &gt; 5500 OR ATFD &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L422">		ArrayList &lt;Regra&gt; regras81 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L423">		Regra r81 = new Regra(&quot;LAA &gt; 0 OR ATFD &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L424">		regras81.add(r81);</span>
+<span class="fc" id="L425">		ResultDisplay rd81 = new ResultDisplay(a, regras81, records,&quot;IF( LAA &gt; 0 OR ATFD &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L427">		ArrayList &lt;Regra&gt; regras82 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L428">		Regra r82 = new Regra(&quot;LOC &lt; 0 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L429">		regras82.add(r82);</span>
+<span class="fc" id="L430">		ResultDisplay rd82 = new ResultDisplay(a, regras82, records,&quot;IF( LOC &lt; 0 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L431">		ArrayList &lt;Regra&gt; regras83 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L432">		Regra r83 = new Regra(&quot;LOC &lt; 5500 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L433">		regras83.add(r83);</span>
+<span class="fc" id="L434">		ResultDisplay rd83 = new ResultDisplay(a, regras83, records,&quot;IF( LOC &lt; 5500 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L435">		ArrayList &lt;Regra&gt; regras84 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L436">		Regra r84 = new Regra(&quot;LOC &lt; 0 OR LAA &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L437">		regras84.add(r84);</span>
+<span class="fc" id="L438">		ResultDisplay rd84 = new ResultDisplay(a, regras84, records,&quot;IF( LOC &lt; 0 OR LAA &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L439">		ArrayList &lt;Regra&gt; regras85 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L440">		Regra r85 = new Regra(&quot;LOC &lt; 66000 OR LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L441">		regras85.add(r85);</span>
+<span class="fc" id="L442">		ResultDisplay rd85 = new ResultDisplay(a, regras85, records,&quot;IF( LOC &lt; 66000 OR LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L443">		ArrayList &lt;Regra&gt; regras86 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L444">		Regra r86 = new Regra(&quot;LOC &gt; 66000 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L445">		regras86.add(r86);</span>
+<span class="fc" id="L446">		ResultDisplay rd86 = new ResultDisplay(a, regras86, records,&quot;IF( LOC &gt; 66000 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L447">		ArrayList &lt;Regra&gt; regras87 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L448">		Regra r87 = new Regra(&quot;LOC &gt; 0 OR LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L449">		regras87.add(r87);</span>
+<span class="fc" id="L450">		ResultDisplay rd87 = new ResultDisplay(a, regras87, records,&quot;IF( LOC &gt; 0 OR LAA &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L451">		ArrayList &lt;Regra&gt; regras88 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L452">		Regra r88 = new Regra(&quot;LOC &gt; 5500 OR LAA &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L453">		regras88.add(r88);</span>
+<span class="fc" id="L454">		ResultDisplay rd88 = new ResultDisplay(a, regras88, records,&quot;IF( LOC &gt; 5500 OR LAA &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L455">		ArrayList &lt;Regra&gt; regras89 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L456">		Regra r89 = new Regra(&quot;LOC &gt; 0 OR LAA &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L457">		regras89.add(r89);</span>
+<span class="fc" id="L458">		ResultDisplay rd89 = new ResultDisplay(a, regras89, records,&quot;IF( LOC &gt; 0 OR LAA &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L460">		ArrayList &lt;Regra&gt; regras90 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L461">		Regra r90 = new Regra(&quot;LOC &lt; 0 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L462">		regras90.add(r90);</span>
+<span class="fc" id="L463">		ResultDisplay rd90 = new ResultDisplay(a, regras90, records,&quot;IF( LOC &lt; 0 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L464">		ArrayList &lt;Regra&gt; regras91 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L465">		Regra r91 = new Regra(&quot;LOC &lt; 5500 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L466">		regras91.add(r91);</span>
+<span class="fc" id="L467">		ResultDisplay rd91 = new ResultDisplay(a, regras91, records,&quot;IF( LOC &lt; 5500 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L468">		ArrayList &lt;Regra&gt; regras92 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L469">		Regra r92 = new Regra(&quot;LOC &lt; 0 OR LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L470">		regras92.add(r92);</span>
+<span class="fc" id="L471">		ResultDisplay rd92 = new ResultDisplay(a, regras92, records,&quot;IF( LOC &lt; 0 OR LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L472">		ArrayList &lt;Regra&gt; regras93 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L473">		Regra r93 = new Regra(&quot;LOC &lt; 66000 OR LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L474">		regras93.add(r93);</span>
+<span class="fc" id="L475">		ResultDisplay rd93 = new ResultDisplay(a, regras93, records,&quot;IF( LOC &lt; 66000 OR LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L476">		ArrayList &lt;Regra&gt; regras94 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L477">		Regra r94 = new Regra(&quot;LOC &gt; 66000 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L478">		regras94.add(r94);</span>
+<span class="fc" id="L479">		ResultDisplay rd94 = new ResultDisplay(a, regras94, records,&quot;IF( LOC &gt; 66000 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L480">		ArrayList &lt;Regra&gt; regras95 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L481">		Regra r95 = new Regra(&quot;LOC &gt; 0 OR LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L482">		regras95.add(r95);</span>
+<span class="fc" id="L483">		ResultDisplay rd95 = new ResultDisplay(a, regras95, records,&quot;IF( LOC &gt; 0 OR LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L484">		ArrayList &lt;Regra&gt; regras96 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L485">		Regra r96 = new Regra(&quot;LOC &gt; 5500 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L486">		regras96.add(r96);</span>
+<span class="fc" id="L487">		ResultDisplay rd96 = new ResultDisplay(a, regras96, records,&quot;IF( LOC &gt; 5500 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L488">		ArrayList &lt;Regra&gt; regras97 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L489">		Regra r97 = new Regra(&quot;LOC &gt; 0 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L490">		regras97.add(r97);</span>
+<span class="fc" id="L491">		ResultDisplay rd97 = new ResultDisplay(a, regras97, records,&quot;IF( LOC &gt; 0 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L493">		ArrayList &lt;Regra&gt; regras98 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L494">		Regra r98 = new Regra(&quot;LOC &lt; 0 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L495">		regras98.add(r98);</span>
+<span class="fc" id="L496">		ResultDisplay rd98 = new ResultDisplay(a, regras98, records,&quot;IF( LOC &lt; 0 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L497">		ArrayList &lt;Regra&gt; regras99 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L498">		Regra r99 = new Regra(&quot;LOC &lt; 5500 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L499">		regras99.add(r99);</span>
+<span class="fc" id="L500">		ResultDisplay rd99 = new ResultDisplay(a, regras99, records,&quot;IF( LOC &lt; 5500 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L501">		ArrayList &lt;Regra&gt; regras100 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L502">		Regra r100 = new Regra(&quot;LOC &lt; 0 OR CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L503">		regras100.add(r100);</span>
+<span class="fc" id="L504">		ResultDisplay rd100 = new ResultDisplay(a, regras100, records,&quot;IF( LOC &lt; 0 OR CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L505">		ArrayList &lt;Regra&gt; regras101 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L506">		Regra r101 = new Regra(&quot;LOC &lt; 66000 OR CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L507">		regras101.add(r101);</span>
+<span class="fc" id="L508">		ResultDisplay rd101 = new ResultDisplay(a, regras101, records,&quot;IF( LOC &lt; 66000 OR CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L509">		ArrayList &lt;Regra&gt; regras102 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L510">		Regra r102 = new Regra(&quot;LOC &gt; 66000 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L511">		regras102.add(r102);</span>
+<span class="fc" id="L512">		ResultDisplay rd102 = new ResultDisplay(a, regras102, records,&quot;IF( LOC &gt; 66000 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L513">		ArrayList &lt;Regra&gt; regras103 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L514">		Regra r103 = new Regra(&quot;LOC &gt; 0 OR CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L515">		regras103.add(r103);</span>
+<span class="fc" id="L516">		ResultDisplay rd103 = new ResultDisplay(a, regras103, records,&quot;IF( LOC &gt; 0 OR CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L517">		ArrayList &lt;Regra&gt; regras104 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L518">		Regra r104 = new Regra(&quot;LOC &gt; 5500 OR CYCLO &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L519">		regras104.add(r104);</span>
+<span class="fc" id="L520">		ResultDisplay rd104 = new ResultDisplay(a, regras104, records,&quot;IF( LOC &gt; 5500 OR CYCLO &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L521">		ArrayList &lt;Regra&gt; regras105 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L522">		Regra r105 = new Regra(&quot;LOC &gt; 0 OR CYCLO &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L523">		regras105.add(r105);</span>
+<span class="fc" id="L524">		ResultDisplay rd105 = new ResultDisplay(a, regras105, records,&quot;IF( LOC &gt; 0 OR CYCLO &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L526">		ArrayList &lt;Regra&gt; regras106 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L527">		Regra r106 = new Regra(&quot;LOC &lt; 0 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L528">		regras106.add(r106);</span>
+<span class="fc" id="L529">		ResultDisplay rd106 = new ResultDisplay(a, regras106, records,&quot;IF( LOC &lt; 0 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L530">		ArrayList &lt;Regra&gt; regras107 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L531">		Regra r107 = new Regra(&quot;LOC &lt; 5500 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L532">		regras107.add(r107);</span>
+<span class="fc" id="L533">		ResultDisplay rd107 = new ResultDisplay(a, regras107, records,&quot;IF( LOC &lt; 5500 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L534">		ArrayList &lt;Regra&gt; regras108 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L535">		Regra r108 = new Regra(&quot;LOC &lt; 0 OR ATFD &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L536">		regras108.add(r108);</span>
+<span class="fc" id="L537">		ResultDisplay rd108 = new ResultDisplay(a, regras108, records,&quot;IF( LOC &lt; 0 OR ATFD &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L538">		ArrayList &lt;Regra&gt; regras109 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L539">		Regra r109 = new Regra(&quot;LOC &lt; 66000 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L540">		regras109.add(r109);</span>
+<span class="fc" id="L541">		ResultDisplay rd109 = new ResultDisplay(a, regras109, records,&quot;IF( LOC &lt; 66000 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L542">		ArrayList &lt;Regra&gt; regras110 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L543">		Regra r110 = new Regra(&quot;LOC &gt; 66000 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L544">		regras110.add(r110);</span>
+<span class="fc" id="L545">		ResultDisplay rd110 = new ResultDisplay(a, regras110, records,&quot;IF( LOC &gt; 66000 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L546">		ArrayList &lt;Regra&gt; regras111 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L547">		Regra r111 = new Regra(&quot;LOC &gt; 0 OR ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L548">		regras111.add(r111);</span>
+<span class="fc" id="L549">		ResultDisplay rd111 = new ResultDisplay(a, regras111, records,&quot;IF( LOC &gt; 0 OR ATFD &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L550">		ArrayList &lt;Regra&gt; regras112 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L551">		Regra r112 = new Regra(&quot;LOC &gt; 5500 OR ATFD &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L552">		regras112.add(r112);</span>
+<span class="fc" id="L553">		ResultDisplay rd112 = new ResultDisplay(a, regras112, records,&quot;IF( LOC &gt; 5500 OR ATFD &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L554">		ArrayList &lt;Regra&gt; regras113 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L555">		Regra r113 = new Regra(&quot;LOC &gt; 0 OR ATFD &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L556">		regras113.add(r113);</span>
+<span class="fc" id="L557">		ResultDisplay rd113 = new ResultDisplay(a, regras113, records,&quot;IF( LOC &gt; 0 OR ATFD &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L559">		ArrayList &lt;Regra&gt; regras114 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L560">		Regra r114 = new Regra(&quot;CYCLO &lt; 0 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L561">		regras114.add(r114);</span>
+<span class="fc" id="L562">		ResultDisplay rd114 = new ResultDisplay(a, regras114, records,&quot;IF( CYCLO &lt; 0 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L563">		ArrayList &lt;Regra&gt; regras115 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L564">		Regra r115 = new Regra(&quot;CYCLO &lt; 5500 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L565">		regras115.add(r115);</span>
+<span class="fc" id="L566">		ResultDisplay rd115 = new ResultDisplay(a, regras115, records,&quot;IF( CYCLO &lt; 5500 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L567">		ArrayList &lt;Regra&gt; regras116 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L568">		Regra r116 = new Regra(&quot;CYCLO &lt; 0 OR LAA &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L569">		regras116.add(r116);</span>
+<span class="fc" id="L570">		ResultDisplay rd116 = new ResultDisplay(a, regras116, records,&quot;IF( CYCLO &lt; 0 OR LAA &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L571">		ArrayList &lt;Regra&gt; regras117 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L572">		Regra r117 = new Regra(&quot;CYCLO &lt; 66000 OR LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L573">		regras117.add(r117);</span>
+<span class="fc" id="L574">		ResultDisplay rd117 = new ResultDisplay(a, regras117, records,&quot;IF( CYCLO &lt; 66000 OR LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L575">		ArrayList &lt;Regra&gt; regras118 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L576">		Regra r118 = new Regra(&quot;CYCLO &gt; 66000 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L577">		regras118.add(r118);</span>
+<span class="fc" id="L578">		ResultDisplay rd118 = new ResultDisplay(a, regras118, records,&quot;IF( CYCLO &gt; 66000 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L579">		ArrayList &lt;Regra&gt; regras119 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L580">		Regra r119 = new Regra(&quot;CYCLO &gt; 0 OR LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L581">		regras119.add(r119);</span>
+<span class="fc" id="L582">		ResultDisplay rd119 = new ResultDisplay(a, regras119, records,&quot;IF( CYCLO &gt; 0 OR LAA &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L583">		ArrayList &lt;Regra&gt; regras120 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L584">		Regra r120 = new Regra(&quot;CYCLO &gt; 5500 OR LAA &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L585">		regras120.add(r120);</span>
+<span class="fc" id="L586">		ResultDisplay rd120 = new ResultDisplay(a, regras120, records,&quot;IF( CYCLO &gt; 5500 OR LAA &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L587">		ArrayList &lt;Regra&gt; regras121 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L588">		Regra r121 = new Regra(&quot;CYCLO &gt; 0 OR LAA &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L589">		regras121.add(r121);</span>
+<span class="fc" id="L590">		ResultDisplay rd121 = new ResultDisplay(a, regras121, records,&quot;IF( CYCLO &gt; 0 OR LAA &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L592">		ArrayList &lt;Regra&gt; regras122 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L593">		Regra r122 = new Regra(&quot;CYCLO &lt; 0 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L594">		regras122.add(r122);</span>
+<span class="fc" id="L595">		ResultDisplay rd122 = new ResultDisplay(a, regras122, records,&quot;IF( CYCLO &lt; 0 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L596">		ArrayList &lt;Regra&gt; regras123 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L597">		Regra r123 = new Regra(&quot;CYCLO &lt; 5500 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L598">		regras123.add(r123);</span>
+<span class="fc" id="L599">		ResultDisplay rd123 = new ResultDisplay(a, regras123, records,&quot;IF( CYCLO &lt; 5500 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L600">		ArrayList &lt;Regra&gt; regras124 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L601">		Regra r124 = new Regra(&quot;CYCLO &lt; 0 OR LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L602">		regras124.add(r124);</span>
+<span class="fc" id="L603">		ResultDisplay rd124 = new ResultDisplay(a, regras124, records,&quot;IF( CYCLO &lt; 0 OR LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L604">		ArrayList &lt;Regra&gt; regras125 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L605">		Regra r125 = new Regra(&quot;CYCLO &lt; 66000 OR LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L606">		regras125.add(r125);</span>
+<span class="fc" id="L607">		ResultDisplay rd125 = new ResultDisplay(a, regras125, records,&quot;IF( CYCLO &lt; 66000 OR LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L608">		ArrayList &lt;Regra&gt; regras126 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L609">		Regra r126 = new Regra(&quot;CYCLO &gt; 66000 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L610">		regras126.add(r126);</span>
+<span class="fc" id="L611">		ResultDisplay rd126 = new ResultDisplay(a, regras126, records,&quot;IF( CYCLO &gt; 66000 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L612">		ArrayList &lt;Regra&gt; regras127 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L613">		Regra r127 = new Regra(&quot;CYCLO &gt; 0 OR LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L614">		regras127.add(r127);</span>
+<span class="fc" id="L615">		ResultDisplay rd127 = new ResultDisplay(a, regras127, records,&quot;IF( CYCLO &gt; 0 OR LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L616">		ArrayList &lt;Regra&gt; regras128 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L617">		Regra r128 = new Regra(&quot;CYCLO &gt; 5500 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L618">		regras128.add(r128);</span>
+<span class="fc" id="L619">		ResultDisplay rd128 = new ResultDisplay(a, regras128, records,&quot;IF( CYCLO &gt; 5500 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L620">		ArrayList &lt;Regra&gt; regras129 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L621">		Regra r129 = new Regra(&quot;CYCLO &gt; 0 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L622">		regras129.add(r129);</span>
+<span class="fc" id="L623">		ResultDisplay rd129 = new ResultDisplay(a, regras129, records,&quot;IF( CYCLO &gt; 0 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L625">		ArrayList &lt;Regra&gt; regras130 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L626">		Regra r130 = new Regra(&quot;CYCLO &lt; 0 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L627">		regras130.add(r130);</span>
+<span class="fc" id="L628">		ResultDisplay rd130 = new ResultDisplay(a, regras130, records,&quot;IF( CYCLO &lt; 0 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L629">		ArrayList &lt;Regra&gt; regras131 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L630">		Regra r131 = new Regra(&quot;CYCLO &lt; 5500 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L631">		regras131.add(r131);</span>
+<span class="fc" id="L632">		ResultDisplay rd131 = new ResultDisplay(a, regras131, records,&quot;IF( CYCLO &lt; 5500 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L633">		ArrayList &lt;Regra&gt; regras132 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L634">		Regra r132 = new Regra(&quot;CYCLO &lt; 0 OR CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L635">		regras132.add(r132);</span>
+<span class="fc" id="L636">		ResultDisplay rd132 = new ResultDisplay(a, regras132, records,&quot;IF( CYCLO &lt; 0 OR CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L637">		ArrayList &lt;Regra&gt; regras133 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L638">		Regra r133 = new Regra(&quot;CYCLO &lt; 66000 OR CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L639">		regras133.add(r133);</span>
+<span class="fc" id="L640">		ResultDisplay rd133 = new ResultDisplay(a, regras133, records,&quot;IF( CYCLO &lt; 66000 OR CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L641">		ArrayList &lt;Regra&gt; regras134 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L642">		Regra r134 = new Regra(&quot;CYCLO &gt; 66000 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L643">		regras134.add(r134);</span>
+<span class="fc" id="L644">		ResultDisplay rd134 = new ResultDisplay(a, regras134, records,&quot;IF( CYCLO &gt; 66000 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L645">		ArrayList &lt;Regra&gt; regras135 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L646">		Regra r135 = new Regra(&quot;CYCLO &gt; 0 OR CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L647">		regras135.add(r135);</span>
+<span class="fc" id="L648">		ResultDisplay rd135 = new ResultDisplay(a, regras135, records,&quot;IF( CYCLO &gt; 0 OR CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L649">		ArrayList &lt;Regra&gt; regras136 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L650">		Regra r136 = new Regra(&quot;CYCLO &gt; 5500 OR CYCLO &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L651">		regras136.add(r136);</span>
+<span class="fc" id="L652">		ResultDisplay rd136 = new ResultDisplay(a, regras136, records,&quot;IF( CYCLO &gt; 5500 OR CYCLO &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L653">		ArrayList &lt;Regra&gt; regras137 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L654">		Regra r137 = new Regra(&quot;CYCLO &gt; 0 OR CYCLO &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L655">		regras137.add(r137);</span>
+<span class="fc" id="L656">		ResultDisplay rd137 = new ResultDisplay(a, regras137, records,&quot;IF( CYCLO &gt; 0 OR CYCLO &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L657">		ArrayList &lt;Regra&gt; regras138 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L658">		Regra r138 = new Regra(&quot;CYCLO &lt; 0 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L659">		regras138.add(r138);</span>
+<span class="fc" id="L660">		ResultDisplay rd138 = new ResultDisplay(a, regras138, records,&quot;IF( CYCLO &lt; 0 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L661">		ArrayList &lt;Regra&gt; regras139 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L662">		Regra r139 = new Regra(&quot;CYCLO &lt; 5500 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L663">		regras139.add(r139);</span>
+<span class="fc" id="L664">		ResultDisplay rd139 = new ResultDisplay(a, regras139, records,&quot;IF( CYCLO &lt; 5500 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L665">		ArrayList &lt;Regra&gt; regras140 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L666">		Regra r140 = new Regra(&quot;CYCLO &lt; 0 OR ATFD &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L667">		regras140.add(r140);</span>
+<span class="fc" id="L668">		ResultDisplay rd140 = new ResultDisplay(a, regras140, records,&quot;IF( CYCLO &lt; 0 OR ATFD &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L669">		ArrayList &lt;Regra&gt; regras141 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L670">		Regra r141 = new Regra(&quot;CYCLO &lt; 66000 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L671">		regras141.add(r141);</span>
+<span class="fc" id="L672">		ResultDisplay rd141 = new ResultDisplay(a, regras141, records,&quot;IF( CYCLO &lt; 66000 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L673">		ArrayList &lt;Regra&gt; regras142 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L674">		Regra r142 = new Regra(&quot;CYCLO &gt; 66000 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L675">		regras142.add(r142);</span>
+<span class="fc" id="L676">		ResultDisplay rd142 = new ResultDisplay(a, regras142, records,&quot;IF( CYCLO &gt; 66000 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L677">		ArrayList &lt;Regra&gt; regras143 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L678">		Regra r143 = new Regra(&quot;CYCLO &gt; 0 OR ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L679">		regras143.add(r143);</span>
+<span class="fc" id="L680">		ResultDisplay rd143 = new ResultDisplay(a, regras143, records,&quot;IF( CYCLO &gt; 0 OR ATFD &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L681">		ArrayList &lt;Regra&gt; regras144 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L682">		Regra r144 = new Regra(&quot;CYCLO &gt; 5500 OR ATFD &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L683">		regras144.add(r144);</span>
+<span class="fc" id="L684">		ResultDisplay rd144 = new ResultDisplay(a, regras144, records,&quot;IF( CYCLO &gt; 5500 OR ATFD &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L685">		ArrayList &lt;Regra&gt; regras145 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L686">		Regra r145 = new Regra(&quot;CYCLO &gt; 0 OR ATFD &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L687">		regras145.add(r145);</span>
+<span class="fc" id="L688">		ResultDisplay rd145 = new ResultDisplay(a, regras145, records,&quot;IF( CYCLO &gt; 0 OR ATFD &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L690">		ArrayList &lt;Regra&gt; regras146 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L691">		Regra r146 = new Regra(&quot;ATFD &lt; 0 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L692">		regras146.add(r146);</span>
+<span class="fc" id="L693">		ResultDisplay rd146 = new ResultDisplay(a, regras146, records,&quot;IF( ATFD &lt; 0 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L694">		ArrayList &lt;Regra&gt; regras147 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L695">		Regra r147 = new Regra(&quot;ATFD &lt; 5500 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L696">		regras147.add(r147);</span>
+<span class="fc" id="L697">		ResultDisplay rd147 = new ResultDisplay(a, regras147, records,&quot;IF( ATFD &lt; 5500 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L698">		ArrayList &lt;Regra&gt; regras148 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L699">		Regra r148 = new Regra(&quot;ATFD &lt; 0 OR LAA &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L700">		regras148.add(r148);</span>
+<span class="fc" id="L701">		ResultDisplay rd148 = new ResultDisplay(a, regras148, records,&quot;IF( ATFD &lt; 0 OR LAA &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L702">		ArrayList &lt;Regra&gt; regras149 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L703">		Regra r149 = new Regra(&quot;ATFD &lt; 66000 OR LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L704">		regras149.add(r149);</span>
+<span class="fc" id="L705">		ResultDisplay rd149 = new ResultDisplay(a, regras149, records,&quot;IF( ATFD &lt; 66000 OR LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L706">		ArrayList &lt;Regra&gt; regras150 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L707">		Regra r150 = new Regra(&quot;ATFD &gt; 66000 OR LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L708">		regras150.add(r150);</span>
+<span class="fc" id="L709">		ResultDisplay rd150 = new ResultDisplay(a, regras150, records,&quot;IF( ATFD &gt; 66000 OR LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L710">		ArrayList &lt;Regra&gt; regras151 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L711">		Regra r151 = new Regra(&quot;ATFD &gt; 0 OR LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L712">		regras151.add(r151);</span>
+<span class="fc" id="L713">		ResultDisplay rd151 = new ResultDisplay(a, regras151, records,&quot;IF( ATFD &gt; 0 OR LAA &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L714">		ArrayList &lt;Regra&gt; regras152 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L715">		Regra r152 = new Regra(&quot;ATFD &gt; 5500 OR LAA &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L716">		regras152.add(r152);</span>
+<span class="fc" id="L717">		ResultDisplay rd152 = new ResultDisplay(a, regras152, records,&quot;IF( ATFD &gt; 5500 OR LAA &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L718">		ArrayList &lt;Regra&gt; regras153 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L719">		Regra r153 = new Regra(&quot;ATFD &gt; 0 OR LAA &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L720">		regras153.add(r153);</span>
+<span class="fc" id="L721">		ResultDisplay rd153 = new ResultDisplay(a, regras153, records,&quot;IF( ATFD &gt; 0 OR LAA &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L723">		ArrayList &lt;Regra&gt; regras154 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L724">		Regra r154 = new Regra(&quot;ATFD &lt; 0 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L725">		regras154.add(r154);</span>
+<span class="fc" id="L726">		ResultDisplay rd154 = new ResultDisplay(a, regras154, records,&quot;IF( ATFD &lt; 0 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L727">		ArrayList &lt;Regra&gt; regras155 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L728">		Regra r155 = new Regra(&quot;ATFD &lt; 5500 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L729">		regras155.add(r155);</span>
+<span class="fc" id="L730">		ResultDisplay rd155 = new ResultDisplay(a, regras155, records,&quot;IF( ATFD &lt; 5500 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L731">		ArrayList &lt;Regra&gt; regras156 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L732">		Regra r156 = new Regra(&quot;ATFD &lt; 0 OR LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L733">		regras156.add(r156);</span>
+<span class="fc" id="L734">		ResultDisplay rd156 = new ResultDisplay(a, regras156, records,&quot;IF( ATFD &lt; 0 OR LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L735">		ArrayList &lt;Regra&gt; regras157 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L736">		Regra r157 = new Regra(&quot;ATFD &lt; 66000 OR LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L737">		regras157.add(r157);</span>
+<span class="fc" id="L738">		ResultDisplay rd157 = new ResultDisplay(a, regras157, records,&quot;IF( ATFD &lt; 66000 OR LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L739">		ArrayList &lt;Regra&gt; regras158 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L740">		Regra r158 = new Regra(&quot;ATFD &gt; 66000 OR LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L741">		regras158.add(r158);</span>
+<span class="fc" id="L742">		ResultDisplay rd158 = new ResultDisplay(a, regras158, records,&quot;IF( ATFD &gt; 66000 OR LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L743">		ArrayList &lt;Regra&gt; regras159 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L744">		Regra r159 = new Regra(&quot;ATFD &gt; 0 OR LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L745">		regras159.add(r159);</span>
+<span class="fc" id="L746">		ResultDisplay rd159 = new ResultDisplay(a, regras159, records,&quot;IF( ATFD &gt; 0 OR LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L747">		ArrayList &lt;Regra&gt; regras160 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L748">		Regra r160 = new Regra(&quot;ATFD &gt; 5500 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L749">		regras160.add(r160);</span>
+<span class="fc" id="L750">		ResultDisplay rd160 = new ResultDisplay(a, regras160, records,&quot;IF( ATFD &gt; 5500 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L751">		ArrayList &lt;Regra&gt; regras161 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L752">		Regra r161 = new Regra(&quot;ATFD &gt; 0 OR LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L753">		regras161.add(r161);</span>
+<span class="fc" id="L754">		ResultDisplay rd161 = new ResultDisplay(a, regras161, records,&quot;IF( ATFD &gt; 0 OR LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L756">		ArrayList &lt;Regra&gt; regras162 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L757">		Regra r162 = new Regra(&quot;ATFD &lt; 0 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L758">		regras162.add(r162);</span>
+<span class="fc" id="L759">		ResultDisplay rd162 = new ResultDisplay(a, regras162, records,&quot;IF( ATFD &lt; 0 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L760">		ArrayList &lt;Regra&gt; regras163 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L761">		Regra r163 = new Regra(&quot;ATFD &lt; 5500 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L762">		regras163.add(r163);</span>
+<span class="fc" id="L763">		ResultDisplay rd163 = new ResultDisplay(a, regras163, records,&quot;IF( ATFD &lt; 5500 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L764">		ArrayList &lt;Regra&gt; regras164 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L765">		Regra r164 = new Regra(&quot;ATFD &lt; 0 OR CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L766">		regras164.add(r164);</span>
+<span class="fc" id="L767">		ResultDisplay rd164 = new ResultDisplay(a, regras164, records,&quot;IF( ATFD &lt; 0 OR CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L768">		ArrayList &lt;Regra&gt; regras165 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L769">		Regra r165 = new Regra(&quot;ATFD &lt; 66000 OR CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L770">		regras165.add(r165);</span>
+<span class="fc" id="L771">		ResultDisplay rd165 = new ResultDisplay(a, regras165, records,&quot;IF( ATFD &lt; 66000 OR CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L772">		ArrayList &lt;Regra&gt; regras166 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L773">		Regra r166 = new Regra(&quot;ATFD &gt; 66000 OR CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L774">		regras166.add(r166);</span>
+<span class="fc" id="L775">		ResultDisplay rd166 = new ResultDisplay(a, regras166, records,&quot;IF( ATFD &gt; 66000 OR CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L776">		ArrayList &lt;Regra&gt; regras167 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L777">		Regra r167 = new Regra(&quot;ATFD &gt; 0 OR CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L778">		regras167.add(r167);</span>
+<span class="fc" id="L779">		ResultDisplay rd167 = new ResultDisplay(a, regras167, records,&quot;IF( ATFD &gt; 0 OR CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L780">		ArrayList &lt;Regra&gt; regras168 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L781">		Regra r168 = new Regra(&quot;ATFD &gt; 15000 OR CYCLO &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L782">		regras168.add(r168);</span>
+<span class="fc" id="L783">		ResultDisplay rd168 = new ResultDisplay(a, regras168, records,&quot;IF( ATFD &gt; 15000 OR CYCLO &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L784">		ArrayList &lt;Regra&gt; regras169 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L785">		Regra r169 = new Regra(&quot;ATFD &gt; 0 OR CYCLO &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L786">		regras169.add(r169);</span>
+<span class="fc" id="L787">		ResultDisplay rd169 = new ResultDisplay(a, regras169, records,&quot;IF( ATFD &gt; 0 OR CYCLO &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L789">		ArrayList &lt;Regra&gt; regras170 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L790">		Regra r170 = new Regra(&quot;ATFD &lt; 0 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L791">		regras170.add(r170);</span>
+<span class="fc" id="L792">		ResultDisplay rd170 = new ResultDisplay(a, regras170, records,&quot;IF( ATFD &lt; 0 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L793">		ArrayList &lt;Regra&gt; regras171 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L794">		Regra r171 = new Regra(&quot;ATFD &lt; 5500 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L795">		regras171.add(r171);</span>
+<span class="fc" id="L796">		ResultDisplay rd171 = new ResultDisplay(a, regras171, records,&quot;IF( ATFD &lt; 5500 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L797">		ArrayList &lt;Regra&gt; regras172 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L798">		Regra r172 = new Regra(&quot;ATFD &lt; 0 OR ATFD &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L799">		regras172.add(r172);</span>
+<span class="fc" id="L800">		ResultDisplay rd172 = new ResultDisplay(a, regras172, records,&quot;IF( ATFD &lt; 0 OR ATFD &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L801">		ArrayList &lt;Regra&gt; regras173 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L802">		Regra r173 = new Regra(&quot;ATFD &lt; 66000 OR ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L803">		regras173.add(r173);</span>
+<span class="fc" id="L804">		ResultDisplay rd173 = new ResultDisplay(a, regras173, records,&quot;IF( ATFD &lt; 66000 OR ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L805">		ArrayList &lt;Regra&gt; regras174 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L806">		Regra r174 = new Regra(&quot;ATFD &gt; 66000 OR ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L807">		regras174.add(r174);</span>
+<span class="fc" id="L808">		ResultDisplay rd174 = new ResultDisplay(a, regras174, records,&quot;IF( ATFD &gt; 66000 OR ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L809">		ArrayList &lt;Regra&gt; regras175 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L810">		Regra r175 = new Regra(&quot;ATFD &gt; 0 OR ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L811">		regras175.add(r175);</span>
+<span class="fc" id="L812">		ResultDisplay rd175 = new ResultDisplay(a, regras175, records,&quot;IF( ATFD &gt; 0 OR ATFD &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L813">		ArrayList &lt;Regra&gt; regras176 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L814">		Regra r176 = new Regra(&quot;ATFD &gt; 15000 OR ATFD &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L815">		regras176.add(r176);</span>
+<span class="fc" id="L816">		ResultDisplay rd176 = new ResultDisplay(a, regras176, records,&quot;IF( ATFD &gt; 15000 OR ATFD &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L817">		ArrayList &lt;Regra&gt; regras177 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L818">		Regra r177 = new Regra(&quot;ATFD &gt; 0 OR ATFD &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L819">		regras177.add(r177);</span>
+<span class="fc" id="L820">		ResultDisplay rd177 = new ResultDisplay(a, regras177, records,&quot;IF( ATFD &gt; 0 OR ATFD &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L822">		ArrayList &lt;Regra&gt; regras178 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L823">		Regra r178 = new Regra(&quot;ATFD &lt; 0 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L824">		regras178.add(r178);</span>
+<span class="fc" id="L825">		ResultDisplay rd178 = new ResultDisplay(a, regras178, records,&quot;IF( ATFD &lt; 0 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L826">		ArrayList &lt;Regra&gt; regras179 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L827">		Regra r179 = new Regra(&quot;ATFD &lt; 5500 AND LOC &lt; 10000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L828">		regras179.add(r179);</span>
+<span class="fc" id="L829">		ResultDisplay rd179 = new ResultDisplay(a, regras179, records,&quot;IF( ATFD &lt; 5500 AND LOC &lt; 10000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L830">		ArrayList &lt;Regra&gt; regras180 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L831">		Regra r180 = new Regra(&quot;ATFD &lt; 0 AND LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L832">		regras180.add(r180);</span>
+<span class="fc" id="L833">		ResultDisplay rd180 = new ResultDisplay(a, regras180, records,&quot;IF( ATFD &lt; 0 AND LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L834">		ArrayList &lt;Regra&gt; regras181 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L835">		Regra r181 = new Regra(&quot;ATFD &lt; 66000 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L836">		regras181.add(r181);</span>
+<span class="fc" id="L837">		ResultDisplay rd181 = new ResultDisplay(a, regras181, records,&quot;IF( ATFD &lt; 66000 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L838">		ArrayList &lt;Regra&gt; regras182 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L839">		Regra r182 = new Regra(&quot;ATFD &gt; 66000 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L840">		regras182.add(r182);</span>
+<span class="fc" id="L841">		ResultDisplay rd182 = new ResultDisplay(a, regras182, records,&quot;IF( ATFD &gt; 66000 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L842">		ArrayList &lt;Regra&gt; regras183 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L843">		Regra r183 = new Regra(&quot;ATFD &gt; 0 AND LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L844">		regras183.add(r183);</span>
+<span class="fc" id="L845">		ResultDisplay rd183 = new ResultDisplay(a, regras183, records,&quot;IF( ATFD &gt; 0 AND LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L846">		ArrayList &lt;Regra&gt; regras184 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L847">		Regra r184 = new Regra(&quot;ATFD &gt; 5500 AND LOC &gt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L848">		regras184.add(r184);</span>
+<span class="fc" id="L849">		ResultDisplay rd184 = new ResultDisplay(a, regras184, records,&quot;IF( ATFD &gt; 5500 AND LOC &gt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L850">		ArrayList &lt;Regra&gt; regras185 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L851">		Regra r185 = new Regra(&quot;ATFD &gt; 0 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L852">		regras185.add(r185);</span>
+<span class="fc" id="L853">		ResultDisplay rd185 = new ResultDisplay(a, regras185, records,&quot;IF( ATFD &gt; 0 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L855">		ArrayList &lt;Regra&gt; regras186 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L856">		Regra r186 = new Regra(&quot;ATFD &lt; 0 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L857">		regras186.add(r186);</span>
+<span class="fc" id="L858">		ResultDisplay rd186 = new ResultDisplay(a, regras186, records,&quot;IF( ATFD &lt; 0 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L859">		ArrayList &lt;Regra&gt; regras187 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L860">		Regra r187 = new Regra(&quot;ATFD &lt; 5500 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L861">		regras187.add(r187);</span>
+<span class="fc" id="L862">		ResultDisplay rd187 = new ResultDisplay(a, regras187, records,&quot;IF( ATFD &lt; 5500 AND CYCLO &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L863">		ArrayList &lt;Regra&gt; regras188 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L864">		Regra r188 = new Regra(&quot;ATFD &lt; 0 AND CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L865">		regras188.add(r188);</span>
+<span class="fc" id="L866">		ResultDisplay rd188 = new ResultDisplay(a, regras188, records,&quot;IF( ATFD &lt; 0 AND CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L867">		ArrayList &lt;Regra&gt; regras189 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L868">		Regra r189 = new Regra(&quot;ATFD &lt; 66000 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L869">		regras189.add(r189);</span>
+<span class="fc" id="L870">		ResultDisplay rd189 = new ResultDisplay(a, regras189, records,&quot;IF( ATFD &lt; 66000 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L871">		ArrayList &lt;Regra&gt; regras190 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L872">		Regra r190 = new Regra(&quot;ATFD &gt; 66000 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L873">		regras190.add(r190);</span>
+<span class="fc" id="L874">		ResultDisplay rd190 = new ResultDisplay(a, regras190, records,&quot;IF( ATFD &gt; 66000 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L875">		ArrayList &lt;Regra&gt; regras191 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L876">		Regra r191 = new Regra(&quot;ATFD &gt; 0 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L877">		regras191.add(r191);</span>
+<span class="fc" id="L878">		ResultDisplay rd191 = new ResultDisplay(a, regras191, records,&quot;IF( ATFD &gt; 0 AND CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L879">		ArrayList &lt;Regra&gt; regras192 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L880">		Regra r192 = new Regra(&quot;ATFD &gt; 15000 AND CYCLO &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L881">		regras192.add(r192);</span>
+<span class="fc" id="L882">		ResultDisplay rd192 = new ResultDisplay(a, regras192, records,&quot;IF( ATFD &gt; 15000 AND CYCLO &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L883">		ArrayList &lt;Regra&gt; regras193 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L884">		Regra r193 = new Regra(&quot;ATFD &gt; 0 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L885">		regras193.add(r193);</span>
+<span class="fc" id="L886">		ResultDisplay rd193 = new ResultDisplay(a, regras193, records,&quot;IF( ATFD &gt; 0 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L888">		ArrayList &lt;Regra&gt; regras194 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L889">		Regra r194 = new Regra(&quot;LOC &lt; 0 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L890">		regras194.add(r194);</span>
+<span class="fc" id="L891">		ResultDisplay rd194 = new ResultDisplay(a, regras194, records,&quot;IF( LOC &lt; 0 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L892">		ArrayList &lt;Regra&gt; regras195 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L893">		Regra r195 = new Regra(&quot;LOC &lt; 5500 AND LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L894">		regras195.add(r195);</span>
+<span class="fc" id="L895">		ResultDisplay rd195 = new ResultDisplay(a, regras195, records,&quot;IF( LOC &lt; 5500 AND LOC &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L896">		ArrayList &lt;Regra&gt; regras196 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L897">		Regra r196 = new Regra(&quot;LOC &lt; 0 AND LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L898">		regras196.add(r196);</span>
+<span class="fc" id="L899">		ResultDisplay rd196 = new ResultDisplay(a, regras196, records,&quot;IF( LOC &lt; 0 AND LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L900">		ArrayList &lt;Regra&gt; regras197 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L901">		Regra r197 = new Regra(&quot;LOC &lt; 66000 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L902">		regras197.add(r197);</span>
+<span class="fc" id="L903">		ResultDisplay rd197 = new ResultDisplay(a, regras197, records,&quot;IF( LOC &lt; 66000 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L904">		ArrayList &lt;Regra&gt; regras198 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L905">		Regra r198 = new Regra(&quot;LOC &gt; 66000 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L906">		regras198.add(r198);</span>
+<span class="fc" id="L907">		ResultDisplay rd198 = new ResultDisplay(a, regras198, records,&quot;IF( LOC &gt; 66000 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L908">		ArrayList &lt;Regra&gt; regras199 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L909">		Regra r199 = new Regra(&quot;LOC &gt; 0 AND LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L910">		regras199.add(r199);</span>
+<span class="fc" id="L911">		ResultDisplay rd199 = new ResultDisplay(a, regras199, records,&quot;IF( LOC &gt; 0 AND LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L912">		ArrayList &lt;Regra&gt; regras200 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L913">		Regra r200 = new Regra(&quot;LOC &gt; 15000 AND LOC &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L914">		regras200.add(r200);</span>
+<span class="fc" id="L915">		ResultDisplay rd200 = new ResultDisplay(a, regras200, records,&quot;IF( LOC &gt; 15000 AND LOC &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L916">		ArrayList &lt;Regra&gt; regras201 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L917">		Regra r201 = new Regra(&quot;LOC &gt; 0 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L918">		regras201.add(r201);</span>
+<span class="fc" id="L919">		ResultDisplay rd201 = new ResultDisplay(a, regras201, records,&quot;IF( LOC &gt; 0 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L921">		ArrayList &lt;Regra&gt; regras202 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L922">		Regra r202 = new Regra(&quot;LAA &lt; 0 AND LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L923">		regras202.add(r202);</span>
+<span class="fc" id="L924">		ResultDisplay rd202 = new ResultDisplay(a, regras202, records,&quot;IF( LAA &lt; 0 AND LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L925">		ArrayList &lt;Regra&gt; regras203 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L926">		Regra r203 = new Regra(&quot;LAA &lt; 5500 AND LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L927">		regras203.add(r203);</span>
+<span class="fc" id="L928">		ResultDisplay rd203 = new ResultDisplay(a, regras203, records,&quot;IF( LAA &lt; 5500 AND LAA &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L929">		ArrayList &lt;Regra&gt; regras204 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L930">		Regra r204 = new Regra(&quot;LAA &lt; 0 AND LAA &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L931">		regras204.add(r204);</span>
+<span class="fc" id="L932">		ResultDisplay rd204 = new ResultDisplay(a, regras204, records,&quot;IF( LAA &lt; 0 AND LAA &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L933">		ArrayList &lt;Regra&gt; regras205 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L934">		Regra r205 = new Regra(&quot;LAA &lt; 66000 AND LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L935">		regras205.add(r205);</span>
+<span class="fc" id="L936">		ResultDisplay rd205 = new ResultDisplay(a, regras205, records,&quot;IF( LAA &lt; 66000 AND LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L937">		ArrayList &lt;Regra&gt; regras206 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L938">		Regra r206 = new Regra(&quot;LAA &gt; 66000 AND LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L939">		regras206.add(r206);</span>
+<span class="fc" id="L940">		ResultDisplay rd206 = new ResultDisplay(a, regras206, records,&quot;IF( LAA &gt; 66000 AND LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L941">		ArrayList &lt;Regra&gt; regras207 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L942">		Regra r207 = new Regra(&quot;LAA &gt; 0 AND LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L943">		regras207.add(r207);</span>
+<span class="fc" id="L944">		ResultDisplay rd207 = new ResultDisplay(a, regras207, records,&quot;IF( LAA &gt; 0 AND LAA &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L945">		ArrayList &lt;Regra&gt; regras208 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L946">		Regra r208 = new Regra(&quot;LAA &gt; 15000 AND LAA &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L947">		regras208.add(r208);</span>
+<span class="fc" id="L948">		ResultDisplay rd208 = new ResultDisplay(a, regras208, records,&quot;IF( LAA &gt; 15000 AND LAA &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L949">		ArrayList &lt;Regra&gt; regras209 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L950">		Regra r209 = new Regra(&quot;LAA &gt; 0 AND LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L951">		regras209.add(r209);</span>
+<span class="fc" id="L952">		ResultDisplay rd209 = new ResultDisplay(a, regras209, records,&quot;IF( LAA &gt; 0 AND LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L954">		ArrayList &lt;Regra&gt; regras210 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L955">		Regra r210 = new Regra(&quot;LAA &lt; 0 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L956">		regras210.add(r210);</span>
+<span class="fc" id="L957">		ResultDisplay rd210 = new ResultDisplay(a, regras210, records,&quot;IF( LAA &lt; 0 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L958">		ArrayList &lt;Regra&gt; regras211 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L959">		Regra r211 = new Regra(&quot;LAA &lt; 5500 AND LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L960">		regras211.add(r211);</span>
+<span class="fc" id="L961">		ResultDisplay rd211 = new ResultDisplay(a, regras211, records,&quot;IF( LAA &lt; 5500 AND LOC &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L962">		ArrayList &lt;Regra&gt; regras212 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L963">		Regra r212 = new Regra(&quot;LAA &lt; 0 AND LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L964">		regras212.add(r212);</span>
+<span class="fc" id="L965">		ResultDisplay rd212 = new ResultDisplay(a, regras212, records,&quot;IF( LAA &lt; 0 AND LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L966">		ArrayList &lt;Regra&gt; regras213 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L967">		Regra r213 = new Regra(&quot;LAA &lt; 66000 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L968">		regras213.add(r213);</span>
+<span class="fc" id="L969">		ResultDisplay rd213 = new ResultDisplay(a, regras213, records,&quot;IF( LAA &lt; 66000 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L970">		ArrayList &lt;Regra&gt; regras214 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L971">		Regra r214 = new Regra(&quot;LAA &gt; 66000 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L972">		regras214.add(r214);</span>
+<span class="fc" id="L973">		ResultDisplay rd214 = new ResultDisplay(a, regras214, records,&quot;IF( LAA &gt; 66000 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L974">		ArrayList &lt;Regra&gt; regras215 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L975">		Regra r215 = new Regra(&quot;LAA &gt; 0 AND LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L976">		regras215.add(r215);</span>
+<span class="fc" id="L977">		ResultDisplay rd215 = new ResultDisplay(a, regras215, records,&quot;IF( LAA &gt; 0 AND LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L978">		ArrayList &lt;Regra&gt; regras216 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L979">		Regra r216 = new Regra(&quot;LAA &gt; 15000 AND LOC &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L980">		regras216.add(r216);</span>
+<span class="fc" id="L981">		ResultDisplay rd216 = new ResultDisplay(a, regras216, records,&quot;IF( LAA &gt; 15000 AND LOC &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L982">		ArrayList &lt;Regra&gt; regras217 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L983">		Regra r217 = new Regra(&quot;LAA &gt; 0 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L984">		regras217.add(r217);</span>
+<span class="fc" id="L985">		ResultDisplay rd217 = new ResultDisplay(a, regras217, records,&quot;IF( LAA &gt; 0 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+
+<span class="fc" id="L987">		ArrayList &lt;Regra&gt; regras218 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L988">		Regra r218 = new Regra(&quot;LAA &lt; 0 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L989">		regras218.add(r218);</span>
+<span class="fc" id="L990">		ResultDisplay rd218 = new ResultDisplay(a, regras218, records,&quot;IF( LAA &lt; 0 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L991">		ArrayList &lt;Regra&gt; regras219 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L992">		Regra r219 = new Regra(&quot;LAA &lt; 5500 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L993">		regras219.add(r219);</span>
+<span class="fc" id="L994">		ResultDisplay rd219 = new ResultDisplay(a, regras219, records,&quot;IF( LAA &lt; 5500 AND CYCLO &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L995">		ArrayList &lt;Regra&gt; regras220 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L996">		Regra r220 = new Regra(&quot;LAA &lt; 0 AND CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L997">		regras220.add(r220);</span>
+<span class="fc" id="L998">		ResultDisplay rd220 = new ResultDisplay(a, regras220, records,&quot;IF( LAA &lt; 0 AND CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L999">		ArrayList &lt;Regra&gt; regras221 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1000">		Regra r221 = new Regra(&quot;LAA &lt; 66000 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1001">		regras221.add(r221);</span>
+<span class="fc" id="L1002">		ResultDisplay rd221 = new ResultDisplay(a, regras221, records,&quot;IF( LAA &lt; 66000 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1003">		ArrayList &lt;Regra&gt; regras222 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1004">		Regra r222 = new Regra(&quot;LAA &gt; 66000 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1005">		regras222.add(r222);</span>
+<span class="fc" id="L1006">		ResultDisplay rd222 = new ResultDisplay(a, regras222, records,&quot;IF( LAA &gt; 66000 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1007">		ArrayList &lt;Regra&gt; regras223 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1008">		Regra r223 = new Regra(&quot;LAA &gt; 0 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1009">		regras223.add(r223);</span>
+<span class="fc" id="L1010">		ResultDisplay rd223 = new ResultDisplay(a, regras223, records,&quot;IF( LAA &gt; 0 AND CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1011">		ArrayList &lt;Regra&gt; regras224 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1012">		Regra r224 = new Regra(&quot;LAA &gt; 15000 AND CYCLO &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1013">		regras224.add(r224);</span>
+<span class="fc" id="L1014">		ResultDisplay rd224 = new ResultDisplay(a, regras224, records,&quot;IF( LAA &gt; 15000 AND CYCLO &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1015">		ArrayList &lt;Regra&gt; regras225 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1016">		Regra r225 = new Regra(&quot;LAA &gt; 0 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1017">		regras225.add(r225);</span>
+<span class="fc" id="L1018">		ResultDisplay rd225 = new ResultDisplay(a, regras225, records,&quot;IF( LAA &gt; 0 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1019">		ArrayList &lt;Regra&gt; regras226 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1020">		Regra r226 = new Regra(&quot;LAA &lt; 0 AND ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1021">		regras226.add(r226);</span>
+<span class="fc" id="L1022">		ResultDisplay rd226 = new ResultDisplay(a, regras226, records,&quot;IF( LAA &lt; 0 AND ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1023">		ArrayList &lt;Regra&gt; regras227 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1024">		Regra r227 = new Regra(&quot;LAA &lt; 5500 AND ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1025">		regras227.add(r227);</span>
+<span class="fc" id="L1026">		ResultDisplay rd227 = new ResultDisplay(a, regras227, records,&quot;IF( LAA &lt; 5500 AND ATFD &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1027">		ArrayList &lt;Regra&gt; regras228 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1028">		Regra r228 = new Regra(&quot;LAA &lt; 0 AND ATFD &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1029">		regras228.add(r228);</span>
+<span class="fc" id="L1030">		ResultDisplay rd228 = new ResultDisplay(a, regras228, records,&quot;IF( LAA &lt; 0 AND ATFD &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1031">		ArrayList &lt;Regra&gt; regras229 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1032">		Regra r229 = new Regra(&quot;LAA &lt; 66000 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1033">		regras229.add(r229);</span>
+<span class="fc" id="L1034">		ResultDisplay rd229 = new ResultDisplay(a, regras229, records,&quot;IF( LAA &lt; 66000 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1035">		ArrayList &lt;Regra&gt; regras230 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1036">		Regra r230 = new Regra(&quot;LAA &gt; 66000 AND ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1037">		regras230.add(r230);</span>
+<span class="fc" id="L1038">		ResultDisplay rd230 = new ResultDisplay(a, regras230, records,&quot;IF( LAA &gt; 66000 AND ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1039">		ArrayList &lt;Regra&gt; regras231 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1040">		Regra r231 = new Regra(&quot;LAA &gt; 0 AND ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1041">		regras231.add(r231);</span>
+<span class="fc" id="L1042">		ResultDisplay rd231 = new ResultDisplay(a, regras231, records,&quot;IF( LAA &gt; 0 AND ATFD &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1043">		ArrayList &lt;Regra&gt; regras232 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1044">		Regra r232 = new Regra(&quot;LAA &gt; 15000 AND ATFD &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1045">		regras232.add(r232);</span>
+<span class="fc" id="L1046">		ResultDisplay rd232 = new ResultDisplay(a, regras232, records,&quot;IF( LAA &gt; 15000 AND ATFD &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1047">		ArrayList &lt;Regra&gt; regras233 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1048">		Regra r233 = new Regra(&quot;LAA &gt; 0 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1049">		regras233.add(r233);</span>
+<span class="fc" id="L1050">		ResultDisplay rd233 = new ResultDisplay(a, regras233, records,&quot;IF( LAA &gt; 0 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L1052">		ArrayList &lt;Regra&gt; regras234 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1053">		Regra r234 = new Regra(&quot;LOC &lt; 0 AND LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1054">		regras234.add(r234);</span>
+<span class="fc" id="L1055">		ResultDisplay rd234 = new ResultDisplay(a, regras234, records,&quot;IF( LOC &lt; 0 AND LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1056">		ArrayList &lt;Regra&gt; regras235 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1057">		Regra r235 = new Regra(&quot;LOC &lt; 5500 AND LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1058">		regras235.add(r235);</span>
+<span class="fc" id="L1059">		ResultDisplay rd235 = new ResultDisplay(a, regras235, records,&quot;IF( LOC &lt; 5500 AND LAA &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1060">		ArrayList &lt;Regra&gt; regras236 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1061">		Regra r236 = new Regra(&quot;LOC &lt; 0 AND LAA &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1062">		regras236.add(r236);</span>
+<span class="fc" id="L1063">		ResultDisplay rd236 = new ResultDisplay(a, regras236, records,&quot;IF( LOC &lt; 0 AND LAA &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1064">		ArrayList &lt;Regra&gt; regras237 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1065">		Regra r237 = new Regra(&quot;LOC &lt; 66000 AND LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1066">		regras237.add(r237);</span>
+<span class="fc" id="L1067">		ResultDisplay rd237 = new ResultDisplay(a, regras237, records,&quot;IF( LOC &lt; 66000 AND LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1068">		ArrayList &lt;Regra&gt; regras238 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1069">		Regra r238 = new Regra(&quot;LOC &gt; 66000 AND LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1070">		regras238.add(r238);</span>
+<span class="fc" id="L1071">		ResultDisplay rd238 = new ResultDisplay(a, regras238, records,&quot;IF( LOC &gt; 66000 AND LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1072">		ArrayList &lt;Regra&gt; regras239 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1073">		Regra r239 = new Regra(&quot;LOC &gt; 0 AND LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1074">		regras239.add(r239);</span>
+<span class="fc" id="L1075">		ResultDisplay rd239 = new ResultDisplay(a, regras239, records,&quot;IF( LOC &gt; 0 AND LAA &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1076">		ArrayList &lt;Regra&gt; regras240 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1077">		Regra r240 = new Regra(&quot;LOC &gt; 15000 AND LAA &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1078">		regras240.add(r240);</span>
+<span class="fc" id="L1079">		ResultDisplay rd240 = new ResultDisplay(a, regras240, records,&quot;IF( LOC &gt; 15000 AND LAA &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1080">		ArrayList &lt;Regra&gt; regras241 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1081">		Regra r241 = new Regra(&quot;LOC &gt; 0 AND LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1082">		regras241.add(r241);</span>
+<span class="fc" id="L1083">		ResultDisplay rd241 = new ResultDisplay(a, regras241, records,&quot;IF( LOC &gt; 0 AND LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L1085">		ArrayList &lt;Regra&gt; regras242 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1086">		Regra r242 = new Regra(&quot;LOC &lt; 0 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1087">		regras242.add(r242);</span>
+<span class="fc" id="L1088">		ResultDisplay rd242 = new ResultDisplay(a, regras242, records,&quot;IF( LOC &lt; 0 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1089">		ArrayList &lt;Regra&gt; regras243 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1090">		Regra r243 = new Regra(&quot;LOC &lt; 5500 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1091">		regras243.add(r243);</span>
+<span class="fc" id="L1092">		ResultDisplay rd243 = new ResultDisplay(a, regras243, records,&quot;IF( LOC &lt; 5500 AND CYCLO &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1093">		ArrayList &lt;Regra&gt; regras244 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1094">		Regra r244 = new Regra(&quot;LOC &lt; 0 AND CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1095">		regras244.add(r244);</span>
+<span class="fc" id="L1096">		ResultDisplay rd244 = new ResultDisplay(a, regras244, records,&quot;IF( LOC &lt; 0 AND CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1097">		ArrayList &lt;Regra&gt; regras245 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1098">		Regra r245 = new Regra(&quot;LOC &lt; 66000 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1099">		regras245.add(r245);</span>
+<span class="fc" id="L1100">		ResultDisplay rd245 = new ResultDisplay(a, regras245, records,&quot;IF( LOC &lt; 66000 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1101">		ArrayList &lt;Regra&gt; regras246 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1102">		Regra r246 = new Regra(&quot;LOC &gt; 66000 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1103">		regras246.add(r246);</span>
+<span class="fc" id="L1104">		ResultDisplay rd246 = new ResultDisplay(a, regras246, records,&quot;IF( LOC &gt; 66000 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1105">		ArrayList &lt;Regra&gt; regras247 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1106">		Regra r247 = new Regra(&quot;LOC &gt; 0 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1107">		regras247.add(r247);</span>
+<span class="fc" id="L1108">		ResultDisplay rd247 = new ResultDisplay(a, regras247, records,&quot;IF( LOC &gt; 0 AND CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1109">		ArrayList &lt;Regra&gt; regras248 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1110">		Regra r248 = new Regra(&quot;LOC &gt; 15000 AND CYCLO &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1111">		regras248.add(r248);</span>
+<span class="fc" id="L1112">		ResultDisplay rd248 = new ResultDisplay(a, regras248, records,&quot;IF( LOC &gt; 15000 AND CYCLO &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1113">		ArrayList &lt;Regra&gt; regras249 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1114">		Regra r249 = new Regra(&quot;LOC &gt; 0 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1115">		regras249.add(r249);</span>
+<span class="fc" id="L1116">		ResultDisplay rd249 = new ResultDisplay(a, regras249, records,&quot;IF( LOC &gt; 0 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L1118">		ArrayList &lt;Regra&gt; regras250 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1119">		Regra r250 = new Regra(&quot;LOC &lt; 0 AND ATFD &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1120">		regras250.add(r250);</span>
+<span class="fc" id="L1121">		ResultDisplay rd250 = new ResultDisplay(a, regras250, records,&quot;IF( LOC &lt; 0 AND ATFD &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1122">		ArrayList &lt;Regra&gt; regras251 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1123">		Regra r251 = new Regra(&quot;LOC &lt; 66000 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1124">		regras251.add(r251);</span>
+<span class="fc" id="L1125">		ResultDisplay rd251 = new ResultDisplay(a, regras251, records,&quot;IF( LOC &lt; 66000 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1126">		ArrayList &lt;Regra&gt; regras252 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1127">		Regra r252 = new Regra(&quot;LOC &gt; 66000 AND ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1128">		regras252.add(r252);</span>
+<span class="fc" id="L1129">		ResultDisplay rd252 = new ResultDisplay(a, regras252, records,&quot;IF( LOC &gt; 66000 AND ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1130">		ArrayList &lt;Regra&gt; regras253 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1131">		Regra r253 = new Regra(&quot;LOC &gt; 0 AND ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1132">		regras253.add(r253);</span>
+<span class="fc" id="L1133">		ResultDisplay rd253 = new ResultDisplay(a, regras253, records,&quot;IF( LOC &gt; 0 AND ATFD &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1134">		ArrayList &lt;Regra&gt; regras254 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1135">		Regra r254 = new Regra(&quot;CYCLO &lt; 0 AND LAA &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1136">		regras254.add(r254);</span>
+<span class="fc" id="L1137">		ResultDisplay rd254 = new ResultDisplay(a, regras254, records,&quot;IF( CYCLO &lt; 0 AND LAA &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1138">		ArrayList &lt;Regra&gt; regras255 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1139">		Regra r255 = new Regra(&quot;CYCLO &lt; 66000 AND LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1140">		regras255.add(r255);</span>
+<span class="fc" id="L1141">		ResultDisplay rd255 = new ResultDisplay(a, regras255, records,&quot;IF( CYCLO &lt; 66000 AND LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1142">		ArrayList &lt;Regra&gt; regras256 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1143">		Regra r256 = new Regra(&quot;CYCLO &gt; 66000 AND LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1144">		regras256.add(r256);</span>
+<span class="fc" id="L1145">		ResultDisplay rd256 = new ResultDisplay(a, regras256, records,&quot;IF( CYCLO &gt; 66000 AND LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1146">		ArrayList &lt;Regra&gt; regras257 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1147">		Regra r257 = new Regra(&quot;CYCLO &gt; 0 AND LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1148">		regras257.add(r257);</span>
+<span class="fc" id="L1149">		ResultDisplay rd257 = new ResultDisplay(a, regras257, records,&quot;IF( CYCLO &gt; 0 AND LAA &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+	
+<span class="fc" id="L1151">		ArrayList &lt;Regra&gt; regras258 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1152">		Regra r258 = new Regra(&quot;CYCLO &lt; 0 AND LOC &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1153">		regras258.add(r258);</span>
+<span class="fc" id="L1154">		ResultDisplay rd258 = new ResultDisplay(a, regras258, records,&quot;IF( CYCLO &lt; 0 AND LOC &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1155">		ArrayList &lt;Regra&gt; regras259 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1156">		Regra r259 = new Regra(&quot;CYCLO &lt; 66000 AND LOC &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1157">		regras259.add(r259);</span>
+<span class="fc" id="L1158">		ResultDisplay rd259 = new ResultDisplay(a, regras259, records,&quot;IF( CYCLO &lt; 66000 AND LOC &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1159">		ArrayList &lt;Regra&gt; regras260 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1160">		Regra r260 = new Regra(&quot;CYCLO &gt; 66000 AND LOC &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1161">		regras260.add(r260);</span>
+<span class="fc" id="L1162">		ResultDisplay rd260 = new ResultDisplay(a, regras260, records,&quot;IF( CYCLO &gt; 66000 AND LOC &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1163">		ArrayList &lt;Regra&gt; regras261 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1164">		Regra r261 = new Regra(&quot;CYCLO &gt; 0 AND LOC &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1165">		regras261.add(r261);</span>
+<span class="fc" id="L1166">		ResultDisplay rd261 = new ResultDisplay(a, regras261, records,&quot;IF( CYCLO &gt; 0 AND LOC &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+	
+<span class="fc" id="L1168">		ArrayList &lt;Regra&gt; regras262 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1169">		Regra r262 = new Regra(&quot;CYCLO &lt; 0 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1170">		regras262.add(r262);</span>
+<span class="fc" id="L1171">		ResultDisplay rd262 = new ResultDisplay(a, regras262, records,&quot;IF( CYCLO &lt; 0 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1172">		ArrayList &lt;Regra&gt; regras263 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1173">		Regra r263 = new Regra(&quot;CYCLO &lt; 5500 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1174">		regras263.add(r263);</span>
+<span class="fc" id="L1175">		ResultDisplay rd263 = new ResultDisplay(a, regras263, records,&quot;IF( CYCLO &lt; 5500 AND CYCLO &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1176">		ArrayList &lt;Regra&gt; regras264 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1177">		Regra r264 = new Regra(&quot;CYCLO &lt; 0 AND CYCLO &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1178">		regras264.add(r264);</span>
+<span class="fc" id="L1179">		ResultDisplay rd264 = new ResultDisplay(a, regras264, records,&quot;IF( CYCLO &lt; 0 AND CYCLO &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1180">		ArrayList &lt;Regra&gt; regras265 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1181">		Regra r265 = new Regra(&quot;CYCLO &lt; 66000 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1182">		regras265.add(r265);</span>
+<span class="fc" id="L1183">		ResultDisplay rd265 = new ResultDisplay(a, regras265, records,&quot;IF( CYCLO &lt; 66000 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1184">		ArrayList &lt;Regra&gt; regras266 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1185">		Regra r266 = new Regra(&quot;CYCLO &gt; 66000 AND CYCLO &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1186">		regras266.add(r266);</span>
+<span class="fc" id="L1187">		ResultDisplay rd266 = new ResultDisplay(a, regras266, records,&quot;IF( CYCLO &gt; 66000 AND CYCLO &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1188">		ArrayList &lt;Regra&gt; regras267 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1189">		Regra r267 = new Regra(&quot;CYCLO &gt; 0 AND CYCLO &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1190">		regras267.add(r267);</span>
+<span class="fc" id="L1191">		ResultDisplay rd267 = new ResultDisplay(a, regras267, records,&quot;IF( CYCLO &gt; 0 AND CYCLO &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1192">		ArrayList &lt;Regra&gt; regras268 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1193">		Regra r268 = new Regra(&quot;CYCLO &gt; 15000 AND CYCLO &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1194">		regras268.add(r268);</span>
+<span class="fc" id="L1195">		ResultDisplay rd268 = new ResultDisplay(a, regras268, records,&quot;IF( CYCLO &gt; 15000 AND CYCLO &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1196">		ArrayList &lt;Regra&gt; regras269 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1197">		Regra r269 = new Regra(&quot;CYCLO &gt; 0 AND CYCLO &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1198">		regras269.add(r269);</span>
+<span class="fc" id="L1199">		ResultDisplay rd269 = new ResultDisplay(a, regras269, records,&quot;IF( CYCLO &gt; 0 AND CYCLO &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L1201">		ArrayList &lt;Regra&gt; regras270 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1202">		Regra r270 = new Regra(&quot;CYCLO &lt; 0 AND ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1203">		regras270.add(r270);</span>
+<span class="fc" id="L1204">		ResultDisplay rd270 = new ResultDisplay(a, regras270, records,&quot;IF( CYCLO &lt; 0 AND ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1205">		ArrayList &lt;Regra&gt; regras271 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1206">		Regra r271 = new Regra(&quot;CYCLO &lt; 5500 AND ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1207">		regras271.add(r271);</span>
+<span class="fc" id="L1208">		ResultDisplay rd271 = new ResultDisplay(a, regras271, records,&quot;IF( CYCLO &lt; 5500 AND ATFD &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1209">		ArrayList &lt;Regra&gt; regras272 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1210">		Regra r272 = new Regra(&quot;CYCLO &lt; 0 AND ATFD &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1211">		regras272.add(r272);</span>
+<span class="fc" id="L1212">		ResultDisplay rd272 = new ResultDisplay(a, regras272, records,&quot;IF( CYCLO &lt; 0 AND ATFD &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1213">		ArrayList &lt;Regra&gt; regras273 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1214">		Regra r273 = new Regra(&quot;CYCLO &lt; 66000 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1215">		regras273.add(r273);</span>
+<span class="fc" id="L1216">		ResultDisplay rd273 = new ResultDisplay(a, regras273, records,&quot;IF( CYCLO &lt; 66000 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1217">		ArrayList &lt;Regra&gt; regras274 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1218">		Regra r274 = new Regra(&quot;CYCLO &gt; 66000 AND ATFD &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1219">		regras274.add(r274);</span>
+<span class="fc" id="L1220">		ResultDisplay rd274 = new ResultDisplay(a, regras274, records,&quot;IF( CYCLO &gt; 66000 AND ATFD &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1221">		ArrayList &lt;Regra&gt; regras275 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1222">		Regra r275 = new Regra(&quot;CYCLO &gt; 0 AND ATFD &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1223">		regras275.add(r275);</span>
+<span class="fc" id="L1224">		ResultDisplay rd275 = new ResultDisplay(a, regras275, records,&quot;IF( CYCLO &gt; 0 AND ATFD &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1225">		ArrayList &lt;Regra&gt; regras276 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1226">		Regra r276 = new Regra(&quot;CYCLO &gt; 15000 AND ATFD &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1227">		regras276.add(r276);</span>
+<span class="fc" id="L1228">		ResultDisplay rd276 = new ResultDisplay(a, regras276, records,&quot;IF( CYCLO &gt; 15000 AND ATFD &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1229">		ArrayList &lt;Regra&gt; regras277 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1230">		Regra r277 = new Regra(&quot;CYCLO &gt; 0 AND ATFD &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1231">		regras277.add(r277);</span>
+<span class="fc" id="L1232">		ResultDisplay rd277 = new ResultDisplay(a, regras, records,&quot;IF( CYCLO &gt; 0 AND ATFD &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L1234">		ArrayList &lt;Regra&gt; regras278 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1235">		Regra r278 = new Regra(&quot;ATFD &lt; 0 AND LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1236">		regras278.add(r278);</span>
+<span class="fc" id="L1237">		ResultDisplay rd278 = new ResultDisplay(a, regras278, records,&quot;IF( ATFD &lt; 0 AND LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1238">		ArrayList &lt;Regra&gt; regras279 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1239">		Regra r279 = new Regra(&quot;ATFD &lt; 5500 AND LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1240">		regras279.add(r279);</span>
+<span class="fc" id="L1241">		ResultDisplay rd279 = new ResultDisplay(a, regras279, records,&quot;IF( ATFD &lt; 5500 AND LAA &lt; 5500 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1242">		ArrayList &lt;Regra&gt; regras280 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1243">		Regra r280 = new Regra(&quot;ATFD &lt; 0 AND LAA &gt; 6660&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1244">		regras280.add(r280);</span>
+<span class="fc" id="L1245">		ResultDisplay rd280 = new ResultDisplay(a, regras280, records,&quot;IF( ATFD &lt; 0 AND LAA &gt; 6660 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1246">		ArrayList &lt;Regra&gt; regras281 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1247">		Regra r281 = new Regra(&quot;ATFD &lt; 66000 AND LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1248">		regras281.add(r281);</span>
+<span class="fc" id="L1249">		ResultDisplay rd281 = new ResultDisplay(a, regras281, records,&quot;IF( ATFD &lt; 66000 AND LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1250">		ArrayList &lt;Regra&gt; regras282 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1251">		Regra r282 = new Regra(&quot;ATFD &gt; 66000 AND LAA &lt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1252">		regras282.add(r282);</span>
+<span class="fc" id="L1253">		ResultDisplay rd282 = new ResultDisplay(a, regras282, records,&quot;IF( ATFD &gt; 66000 AND LAA &lt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1254">		ArrayList &lt;Regra&gt; regras283 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1255">		Regra r283 = new Regra(&quot;ATFD &gt; 0 AND LAA &lt; 5550&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1256">		regras283.add(r283);</span>
+<span class="fc" id="L1257">		ResultDisplay rd283 = new ResultDisplay(a, regras283, records,&quot;IF( ATFD &gt; 0 AND LAA &lt; 5550 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1258">		ArrayList &lt;Regra&gt; regras284 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1259">		Regra r284 = new Regra(&quot;ATFD &gt; 15000 AND LAA &gt; 15000&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1260">		regras284.add(r284);</span>
+<span class="fc" id="L1261">		ResultDisplay rd284 = new ResultDisplay(a, regras284, records,&quot;IF( ATFD &gt; 15000 AND LAA &gt; 15000 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+<span class="fc" id="L1262">		ArrayList &lt;Regra&gt; regras285 = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L1263">		Regra r285 = new Regra(&quot;ATFD &gt; 0 AND LAA &gt; 0&quot;,&quot;is_feature_envy = FALSE&quot;,&quot;is_feature_envy = TRUE&quot;);</span>
+<span class="fc" id="L1264">		regras285.add(r285);</span>
+<span class="fc" id="L1265">		ResultDisplay rd285 = new ResultDisplay(a, regras, records,&quot;IF( ATFD &gt; 0 AND LAA &gt; 0 ) THEN ( is_feature_envy = FALSE ) ELSE ( is_feature_envy = TRUE )&quot;);</span>
+		
+<span class="fc" id="L1267">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

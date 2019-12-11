@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ExcelDisplayTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">ExcelDisplayTest.java</span></div><h1>ExcelDisplayTest.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import org.junit.jupiter.api.Test;
+
+<span class="fc" id="L17">public class ExcelDisplayTest {</span>
+
+	static ReadExcel readExcel;
+	static ExcelDisplay excelDisplay;
+
+	@Test
+	public void testExcelDisplayWorks() throws IOException {
+<span class="fc" id="L24">		File excelfile = new File(&quot;files/Long-Method.xlsx&quot;);</span>
+<span class="fc" id="L25">		ReadExcel readExcel = new ReadExcel(excelfile);</span>
+<span class="fc" id="L26">		ExcelDisplay.startInstance(readExcel);</span>
+<span class="fc" id="L27">	}</span>
+
+	@Test
+	public void testExcelDisplayFileDontExists() throws IOException {
+<span class="fc" id="L31">		File excelfile = new File(&quot;files/Long-Method2.xlsx&quot;);</span>
+<span class="pc" id="L32">		assertThrows(IOException.class, () -&gt; readExcel = new ReadExcel(excelfile));</span>
+<span class="fc" id="L33">	}</span>
+
+	@Test
+	public void testExcelDisplayFileInvalid() throws IOException {
+<span class="fc" id="L37">		File excelfile = new File(&quot;files/teste.txt&quot;);</span>
+<span class="pc" id="L38">		assertThrows(Exception.class, () -&gt; readExcel = new ReadExcel(excelfile));</span>
+		// ExcelDisplay.startInstance(readExcel);
+<span class="fc" id="L40">	}</span>
+
+	@Test
+	public void testStartInstance() throws IOException {
+<span class="fc" id="L44">		File excelfile = new File(&quot;files/Long-Method.xlsx&quot;);</span>
+<span class="fc" id="L45">		ReadExcel readExcel = new ReadExcel(excelfile);</span>
+<span class="fc" id="L46">		ExcelDisplay object1 = ExcelDisplay.startInstance(readExcel);</span>
+<span class="fc" id="L47">		ExcelDisplay object2 = ExcelDisplay.startInstance(readExcel);</span>
+<span class="fc" id="L48">		assertEquals(object1, object2);</span>
+<span class="fc" id="L49">	}</span>
+
+	@Test
+	void testGetRecord() throws IOException {
+<span class="fc" id="L53">		File excelfile = new File(&quot;files/Long-Method.xlsx&quot;);</span>
+<span class="fc" id="L54">		readExcel = new ReadExcel(excelfile);</span>
+<span class="fc" id="L55">		assertNotNull(readExcel.getRecord());</span>
+<span class="fc" id="L56">	}</span>
+
+	@Test
+	void testGetInstance() {
+<span class="fc" id="L60">		excelDisplay = new ExcelDisplay(readExcel);</span>
+<span class="fc" id="L61">		assertNotNull(excelDisplay);</span>
+<span class="fc" id="L62">	}</span>
+
+	@Test
+	void testGetJ() {
+<span class="fc" id="L66">		assertNotNull(ExcelDisplay.getInstance().getJ());</span>
+<span class="fc" id="L67">	}</span>
+
+	@Test
+	void testSetJ() {
+<span class="fc" id="L71">		JTable table = new JTable();</span>
+<span class="fc" id="L72">		assertDoesNotThrow(() -&gt; ExcelDisplay.getInstance().setJ(table));</span>
+<span class="fc" id="L73">	}</span>
+
+	@Test
+	void testGetSp() {
+<span class="fc" id="L77">		assertNotNull(ExcelDisplay.getInstance().getSp());</span>
+<span class="fc" id="L78">	}</span>
+
+	@Test
+	void testSetSp() {
+<span class="fc" id="L82">		JScrollPane panel = new JScrollPane();</span>
+<span class="fc" id="L83">		assertDoesNotThrow(() -&gt; ExcelDisplay.getInstance().setSp(panel));</span>
+<span class="fc" id="L84">	}</span>
+
+	@Test
+	void testGetData() {
+<span class="fc" id="L88">		assertNotNull(ExcelDisplay.getInstance().getData());</span>
+<span class="fc" id="L89">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Openfile.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">Openfile.java</span></div><h1>Openfile.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+
+/**
+* Esta classe permite a importação do ficheiro excel
+*
+* @author  Pedro Fonseca, Fábio Cardoso, Filipa Gomes, Inês Gomes, Sofia Pérsio, Marco Silva
+*/
+public class Openfile {
+	public Interface1 i;
+	public static File Excelfile;
+<span class="fc" id="L16">	JFileChooser chooseFile = new JFileChooser();</span>
+<span class="fc" id="L17">	public ArrayList&lt;Record&gt; records = new ArrayList&lt;Record&gt;();</span>
+	
+	/**
+	 * Construtor da classe
+	 * Recebe a interface 1 como atributo apenas para realizar a confirmacao se o ficheiro se encontra carregado
+	 * @param Interface1
+	 */
+<span class="fc" id="L24">	public Openfile (Interface1 i) {</span>
+<span class="fc" id="L25">		this.i=i;</span>
+<span class="fc" id="L26">	}</span>
+	/**
+	 * Browser() neste metodo é aberta a janela browser onde se procura o ficheiro e
+	 * e tambem é realizada a leitura do ficheiro excel para uma estrutura de dados
+	 * também se realiza a confrmação do carregamento do ficheiro
+	 */
+	public void Browser() throws Exception{
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">		if(chooseFile.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {</span>
+			
+			//agora vamos buscar o ficheiro 
+<span class="fc" id="L36">			java.io.File file = chooseFile.getSelectedFile();</span>
+<span class="fc" id="L37">			Excelfile = new File(chooseFile.getSelectedFile().toString());</span>
+			//irei realizar aqui a leitura do ficheiro Excel para uma estrutura de dados (Pedro)
+<span class="fc" id="L39">			ReadExcel readExcel = new ReadExcel(Excelfile);</span>
+<span class="fc" id="L40">			records = readExcel.getRecord();</span>
+<span class="fc" id="L41">			ExcelDisplay.startInstance(readExcel);</span>
+<span class="fc" id="L42">			System.out.println(&quot;O ficheiro escolhido encontra-se na diretoria: &quot; + Excelfile.getPath());</span>
+<span class="fc" id="L43">			i.fileConfirmed(file.getName(),chooseFile.getSelectedFile().toString());</span>
+			//com isto vi que funciona quando se fizer leitura do ficheiro é favor apagar a linha a cima
+<span class="fc" id="L45">		}</span>
+			else {
+<span class="nc" id="L47">				System.out.println(&quot;Não selecionaram nenhum ficheiro&quot;);</span>
+			}
+			
+<span class="fc" id="L50">		}</span>
+
+	public ArrayList&lt;Record&gt; getRecords() {
+<span class="fc" id="L53">		return records;</span>
+	}
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

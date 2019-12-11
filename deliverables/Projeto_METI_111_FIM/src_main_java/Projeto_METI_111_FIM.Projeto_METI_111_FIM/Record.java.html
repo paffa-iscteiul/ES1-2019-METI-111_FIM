@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Record.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">Record.java</span></div><h1>Record.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import java.io.IOException;
+
+/**
+* Esta classe permite definir uma estrutura de dados para os registos do ficheiro Excel
+*
+* @author  Pedro Fonseca, Fábio Cardoso, Filipa Gomes, Inês Gomes, Sofia Pérsio, Marco Silva
+*/
+public class Record {
+	String methodID;
+	String pack;
+	String classe;
+	String method;
+	String loc;
+	String cyclo;
+	String atfd;
+	String laa;
+	String islongmethod;
+	String iplasma;
+	String pmd;
+	String isfeatureenvy;
+	
+	/**
+	 * Construtor da classe
+	 * Recebe os vários valores para os atributos, ou seja, os vários valores para cada coluna do ficheiro Excel
+	 * @param methodID id do método
+	 * @param pack package do método
+	 * @param classe classe do método
+	 * @param method método
+	 * @param loc linhas de código do método
+	 * @param cyclo complexidade ciclomátca do método
+	 * @param atfd acessos do método a métodos de outras classes
+	 * @param laa acessos do método a atributos da própria classe
+	 * @param islongmethod se o método é longo
+	 * @param iplasma classificação da ferramenta de deteçao de defeitos iplasma
+	 * @param pmd classificação da ferramenta de deteçao de defeitos pmd
+	 * @param isfeatureenvy se o método é featureenvy
+	 * @throws IOException importante
+	 */
+<span class="fc" id="L41">	public Record(String methodID, String pack, String classe, String method, String loc, String cyclo,</span>
+			String atfd, String laa, String islongmethod, String iplasma, String pmd, String isfeatureenvy) throws IOException {
+<span class="fc" id="L43">		this.methodID=methodID;</span>
+<span class="fc" id="L44">		this.pack=pack;</span>
+<span class="fc" id="L45">		this.classe=classe;</span>
+<span class="fc" id="L46">		this.method=method;</span>
+<span class="fc" id="L47">		this.loc=loc;</span>
+<span class="fc" id="L48">		this.cyclo=cyclo;</span>
+<span class="fc" id="L49">		this.atfd=atfd;</span>
+<span class="fc" id="L50">		this.laa=laa;</span>
+<span class="fc" id="L51">		this.islongmethod=islongmethod;</span>
+<span class="fc" id="L52">		this.iplasma=iplasma;</span>
+<span class="fc" id="L53">		this.pmd=pmd;</span>
+<span class="fc" id="L54">		this.isfeatureenvy=isfeatureenvy;</span>
+<span class="fc" id="L55">	}</span>
+	
+	/**
+	 * Construtor da classe
+	 * Serve para criar uma instância, cujos atributos se encontram vazios
+	 * @throws IOException importante
+	 */
+<span class="fc" id="L62">	public Record() throws IOException {}</span>
+	
+	/**
+	 * getMethodID() Irá retornar o ID do método do registo em causa (linha do excel)
+	 * @return methodID, ID do método
+	 */
+	public String getMethodID() {
+<span class="fc" id="L69">		return methodID;</span>
+	}
+	
+	/**
+	 * getPack() Irá retornar o Package do método do registo em causa (linha do excel)
+	 * @return pack, Package do método
+	 */
+	public String getPack() {
+<span class="fc" id="L77">		return pack;</span>
+	}
+	
+	/**
+	 * getClasse() Irá retornar a classe do método do registo em causa (linha do excel)
+	 * @return classe, classe do método
+	 */
+	public String getClasse() {
+<span class="fc" id="L85">		return classe;</span>
+	}
+	
+	/**
+	 * getMethod() Irá retornar o método do registo em causa (linha do excel)
+	 * @return method, método
+	 */
+	public String getMethod() {
+<span class="fc" id="L93">		return method;</span>
+	}
+	
+	/**
+	 * getLoc() Irá retornar linhas de código do método do registo em causa (linha do excel)
+	 * @return loc, linhas de código do método
+	 */
+	public String getLoc() {
+<span class="fc" id="L101">		return loc;</span>
+	}
+	
+	/**
+	 * getCyclo() Irá retornar a complexidade ciclomática do método do registo em causa (linha do excel)
+	 * @return cyclo, complexidade ciclomática do método
+	 */
+	public String getCyclo() {
+<span class="fc" id="L109">		return cyclo;</span>
+	}
+	
+	/**
+	 * getAtfd() Irá retornar o número de acessos do método do registo em causa 
+	 * (linha do excel) a método exteriores
+	 * @return atfd, atfd do método
+	 */
+	public String getAtfd() {
+<span class="fc" id="L118">		return atfd;</span>
+	}
+	
+	/**
+	 * getLaa() Irá retornar o número de acessos do método do registo em causa 
+	 * (linha do excel) a atributos da própria classe
+	 * @return laa, laa do método
+	 */
+	public String getLaa() {
+<span class="fc" id="L127">		return laa;</span>
+	}
+	
+	/**
+	 * getIsLongMethod() Irá retornar se o método do registo em causa (linha do excel) é longo método
+	 * @return islongmethod, se o método é longo (True or False)
+	 */
+	public String getIsLongMethod() {
+<span class="fc" id="L135">		return islongmethod;</span>
+	}
+	
+	/**
+	 * getIplasma() Irá retornar a classificação da ferramente iPlasma sobre 
+	 * o método do registo em causa (linha do excel)
+	 * @return iplasma, classificação iplasma sobre método
+	 */
+	public String getIPlasma() {
+<span class="fc" id="L144">		return iplasma;</span>
+	}
+	
+	/**
+	 * getPmd() Irá retornar a classificação da ferramente PMD sobre 
+	 * o método do registo em causa (linha do excel)
+	 * @return pmd, classificação PMD sobre método
+	 */
+	public String getPmd() {
+<span class="fc" id="L153">		return pmd;</span>
+	}
+	
+	/**
+	 * getIsFeatureEnvy() Irá retornar se o método do registo em causa (linha do excel) é feature_envy
+	 * @return isfeatureenvy, se o método é feature_envy (True or False)
+	 */
+	public String getIsFeatureEnvy() {
+<span class="fc" id="L161">		return isfeatureenvy;</span>
+	}
+	
+	/**
+	 * add() É uma função que armazena a informação s, segundo determinado indice
+	 * @param i indice
+	 * @param s valor de atributo
+	 */
+	public void add(int i, String s) {
+<span class="fc bfc" id="L170" title="All 2 branches covered.">		if(i==1) methodID=s;</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">		if(i==2) pack=s;</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">		if(i==3) classe=s;</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">		if(i==4) method=s;</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">		if(i==5) loc=s;</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">		if(i==6) cyclo=s;</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">		if(i==7) atfd=s;</span>
+<span class="fc bfc" id="L177" title="All 2 branches covered.">		if(i==8) laa=s;</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">		if(i==9) islongmethod=s;</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">		if(i==10) iplasma=s;</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">		if(i==11) pmd=s;</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">		if(i==12) isfeatureenvy=s;</span>
+<span class="fc" id="L182">	}</span>
+	
+	/**
+	 * getRegisto() Irá retornar o registo do método em causa (linha do excel)
+	 * @return (methodID+&quot; &quot;+pack+&quot; &quot;+classe+&quot; &quot;+method+&quot; &quot;+loc+&quot; &quot;+cyclo+&quot; &quot;+atfd+&quot; 
+	 * &quot;+laa+&quot; &quot;+islongmethod+&quot; &quot;+iplasma+&quot; &quot;+pmd+&quot; &quot;+isfeatureenvy), registo do método (linha do excel)
+	 */
+	public String getRegisto() {
+<span class="fc" id="L190">		return (methodID+&quot; &quot;+pack+&quot; &quot;+classe+&quot; &quot;+method+&quot; &quot;+loc+&quot; &quot;+cyclo+&quot; &quot;+atfd+&quot; &quot;+laa+&quot; &quot;+islongmethod</span>
+<span class="fc" id="L191">				+&quot; &quot;+iplasma+&quot; &quot;+pmd+&quot; &quot;+isfeatureenvy);</span>
+	}
+			
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

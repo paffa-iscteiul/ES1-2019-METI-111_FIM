@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Interface3.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">Interface3.java</span></div><h1>Interface3.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
+/**
+* Esta classe permite a visualização do ficheiro excel numa interface gráfica
+* desenhada, bem como a possibilidade de escrita de regras
+*
+* @author  Pedro Fonseca, Fábio Cardoso, Filipa Gomes, Inês Gomes, Sofia Pérsio, Marco Silva
+*/
+public class Interface3 {
+	private JFrame frame;
+<span class="fc" id="L26">	private String limlocLer=&quot;&quot;;</span>
+<span class="fc" id="L27">	private String limatfdLer=&quot;&quot;;</span>
+<span class="fc" id="L28">	private String limcycloLer=&quot;&quot;;</span>
+<span class="fc" id="L29">	private String limlaaLer=&quot;&quot;;</span>
+	private JButton and, smaller, telse, or, equal, tif, ttrue, tfalse, bigger, tso, islongmethod, isfeatureenvy, loc, cyclo, atfd, laa, open, close;
+	private JTextField screen, limloc, limlaa, limcyclo, limatfd;
+<span class="fc" id="L32">	ArrayList &lt;Regra&gt; regras = new ArrayList&lt;Regra&gt;() ;</span>
+<span class="fc" id="L33">	ArrayList &lt;Record&gt; records = new ArrayList&lt;Record&gt;() ;	</span>
+	String main ;
+	String THENfinal;
+	String ELSEfinal;
+	String string;
+
+	/**
+	 * startInstance Interface3
+	 * criar a interface com título e dimensão
+	 * @param string 
+	 * @param records 
+	 */
+<span class="fc" id="L45">	public Interface3 (String string, ArrayList&lt;Record&gt; records) {</span>
+<span class="fc" id="L46">		frame = new JFrame (&quot;Aplicação de avaliaçao de código&quot;);</span>
+<span class="fc" id="L47">		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L48">		frame.setLayout(new BorderLayout());</span>
+<span class="fc" id="L49">		frame.setSize(500,300);</span>
+<span class="fc" id="L50">		addFrameContent();</span>
+<span class="fc" id="L51">		this.string=string;</span>
+<span class="fc" id="L52">		this.records=records;</span>
+<span class="fc" id="L53">	}	</span>
+	
+	/**
+	 * Criação de todos os paineis necessários para a janela
+	 * de introdução dos parâmetros pelo utilizador
+	 */
+	
+	public void addFrameContent() {
+		//painel onde se lê o excell
+<span class="fc" id="L62">		JPanel centerPanel = new JPanel ();</span>
+<span class="fc" id="L63">		centerPanel.setLayout(new FlowLayout());</span>
+<span class="fc" id="L64">		frame.add(ExcelDisplay.getInstance().getSp(),BorderLayout.NORTH); //onde entra  excell (está criado o espaço) com scroll</span>
+		
+<span class="fc" id="L66">		JLabel aviso = new JLabel (&quot;Valores da Tabela selecionada&quot;);</span>
+<span class="fc" id="L67">		centerPanel.add(aviso,BorderLayout.NORTH);</span>
+		
+<span class="fc" id="L69">		JPanel factors = new JPanel();</span>
+<span class="fc" id="L70">		factors.setLayout(new BorderLayout());</span>
+<span class="fc" id="L71">		frame.add(factors);</span>
+
+<span class="fc" id="L73">		JPanel thresholdsPanel = new JPanel();</span>
+<span class="fc" id="L74">		thresholdsPanel.setLayout(new GridLayout(4,3));</span>
+<span class="fc" id="L75">		factors.add(thresholdsPanel, BorderLayout.CENTER);</span>
+		
+<span class="fc" id="L77">		JPanel calculator = new JPanel();  //onde entra a calculadora (está criado o espaço)</span>
+<span class="fc" id="L78">		calculator.setLayout(new BorderLayout());</span>
+<span class="fc" id="L79">		frame.add(calculator, BorderLayout.EAST);</span>
+		
+		// Organização do Painel da &quot;Calculadora&quot; - mais tarde poderá ter a sua propria classe
+<span class="fc" id="L82">		calculator.setLayout(new BorderLayout());</span>
+		
+<span class="fc" id="L84">		JPanel cpainel = new JPanel();</span>
+		
+		
+		/**
+		 * Criação do mostrador para introduzir a calculadora 
+		 * botões para fácil utilização e adição dos parâmetros e condições
+		 */
+		
+		//Mostrador
+<span class="fc" id="L93">		screen = new JTextField();   </span>
+<span class="fc" id="L94">		calculator.add(screen, BorderLayout.NORTH);</span>
+		
+		// Painel com os termos das regras
+<span class="fc" id="L97">		JPanel terms = new JPanel();</span>
+<span class="fc" id="L98">		terms.setLayout(new GridLayout(3,4));</span>
+		
+<span class="fc" id="L100">		and = new JButton(&quot; AND&quot;);</span>
+<span class="fc" id="L101">		and.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L103">				String enterTerm = screen.getText() + and.getText();</span>
+<span class="nc" id="L104">				screen.setText(enterTerm);</span>
+<span class="nc" id="L105">			}</span>
+		});
+		
+<span class="fc" id="L108">		smaller = new JButton(&quot; &lt;&quot;);</span>
+<span class="fc" id="L109">		smaller.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L111">				String metric = null;</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">				if(screen.getText().length() &gt; 0) {</span>
+<span class="nc" id="L113">					String regra = screen.getText();</span>
+<span class="nc" id="L114">					ArrayList&lt;String&gt; arr = new ArrayList&lt;String&gt;(Arrays.asList(regra.split(&quot; &quot;)));</span>
+<span class="nc" id="L115">					metric = arr.get(arr.size() -1);</span>
+					
+<span class="nc bnc" id="L117" title="All 2 branches missed.">					if(metric.equals(&quot;CYCLO&quot;)) {</span>
+<span class="nc" id="L118">						String enterTerm = screen.getText() + smaller.getText() + &quot; &quot; + limcycloLer;</span>
+						
+<span class="nc" id="L120">						screen.setText(enterTerm);</span>
+					}
+<span class="nc bnc" id="L122" title="All 2 branches missed.">					if(metric.equals(&quot;LAA&quot;)) {</span>
+<span class="nc" id="L123">						String enterTerm = screen.getText() + smaller.getText() + &quot; &quot; + limlaaLer;</span>
+<span class="nc" id="L124">						screen.setText(enterTerm);</span>
+					}
+						
+<span class="nc bnc" id="L127" title="All 2 branches missed.">					if(metric.equals(&quot;ATFD&quot;)) {</span>
+<span class="nc" id="L128">						String enterTerm = screen.getText() + smaller.getText() + &quot; &quot; + limatfdLer;</span>
+<span class="nc" id="L129">						screen.setText(enterTerm);</span>
+					}
+						
+<span class="nc bnc" id="L132" title="All 2 branches missed.">					if(metric.equals(&quot;LOC&quot;)) {</span>
+<span class="nc" id="L133">						String enterTerm = screen.getText() + smaller.getText() + &quot; &quot; + limlocLer;</span>
+<span class="nc" id="L134">						screen.setText(enterTerm);</span>
+					}
+				}
+				
+				
+<span class="nc" id="L139">			}</span>
+		});
+		
+<span class="fc" id="L142">		telse = new JButton(&quot; ELSE&quot;);</span>
+<span class="fc" id="L143">		telse.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L145">				String enterTerm = screen.getText() + telse.getText();</span>
+<span class="nc" id="L146">				screen.setText(enterTerm);</span>
+<span class="nc" id="L147">			}</span>
+		});
+		
+		
+<span class="fc" id="L151">		or = new JButton(&quot; OR&quot;);</span>
+<span class="fc" id="L152">		or.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L154">				String enterTerm = screen.getText() + or.getText();</span>
+<span class="nc" id="L155">				screen.setText(enterTerm);</span>
+<span class="nc" id="L156">			}</span>
+		});
+		
+<span class="fc" id="L159">		equal = new JButton(&quot; =&quot;);</span>
+<span class="fc" id="L160">		equal.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L162">				String enterTerm = screen.getText() + equal.getText();</span>
+<span class="nc" id="L163">				screen.setText(enterTerm);</span>
+<span class="nc" id="L164">			}</span>
+		});
+		
+<span class="fc" id="L167">		ttrue = new JButton(&quot; TRUE&quot;);     //double t propositado</span>
+<span class="fc" id="L168">		ttrue.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L170">				String enterTermo = screen.getText() + ttrue.getText();</span>
+<span class="nc" id="L171">				screen.setText(enterTermo);</span>
+<span class="nc" id="L172">			}</span>
+		});
+		
+<span class="fc" id="L175">		tif = new JButton(&quot; IF&quot;);    //botao if</span>
+<span class="fc" id="L176">		tif.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L178">				String enterTerm = screen.getText() + tif.getText();</span>
+<span class="nc" id="L179">				screen.setText(enterTerm);</span>
+<span class="nc" id="L180">			}</span>
+		});
+		
+<span class="fc" id="L183">		tfalse = new JButton(&quot; FALSE&quot;);</span>
+<span class="fc" id="L184">		tfalse.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L186">				String enterTerm = screen.getText() + tfalse.getText();</span>
+<span class="nc" id="L187">				screen.setText(enterTerm);</span>
+<span class="nc" id="L188">			}</span>
+		});
+		
+<span class="fc" id="L191">		bigger = new JButton(&quot; &gt;&quot;);</span>
+<span class="fc" id="L192">		bigger.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L194">				String metric = null;</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">				if(screen.getText().length() &gt; 0) {</span>
+<span class="nc" id="L196">					String regra = screen.getText();</span>
+<span class="nc" id="L197">					ArrayList&lt;String&gt; arr = new ArrayList&lt;String&gt;(Arrays.asList(regra.split(&quot; &quot;)));</span>
+<span class="nc" id="L198">					metric = arr.get(arr.size() -1);</span>
+					
+<span class="nc bnc" id="L200" title="All 2 branches missed.">					if(metric.equals(&quot;CYCLO&quot;)) {</span>
+<span class="nc" id="L201">						String enterTerm = screen.getText() + bigger.getText() + &quot; &quot; + limcycloLer;</span>
+						
+<span class="nc" id="L203">						screen.setText(enterTerm);</span>
+					}
+<span class="nc bnc" id="L205" title="All 2 branches missed.">					if(metric.equals(&quot;LAA&quot;)) {</span>
+<span class="nc" id="L206">						String enterTerm = screen.getText() + bigger.getText() + &quot; &quot; + limlaaLer;</span>
+<span class="nc" id="L207">						screen.setText(enterTerm);</span>
+					}
+						
+<span class="nc bnc" id="L210" title="All 2 branches missed.">					if(metric.equals(&quot;ATFD&quot;)) {</span>
+<span class="nc" id="L211">						String enterTerm = screen.getText() + bigger.getText() + &quot; &quot; + limatfdLer;</span>
+<span class="nc" id="L212">						screen.setText(enterTerm);</span>
+					}
+						
+<span class="nc bnc" id="L215" title="All 2 branches missed.">					if(metric.equals(&quot;LOC&quot;)) {</span>
+<span class="nc" id="L216">						String enterTerm = screen.getText() + bigger.getText() + &quot; &quot; + limlocLer;</span>
+<span class="nc" id="L217">						screen.setText(enterTerm);</span>
+					}
+				}
+								
+								
+				
+					
+					
+<span class="nc" id="L225">			}</span>
+		});
+		
+<span class="fc" id="L228">		tso = new JButton(&quot; THEN&quot;);					//'entao'</span>
+<span class="fc" id="L229">		tso.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L231">				String enterTerm = screen.getText() + tso.getText();</span>
+<span class="nc" id="L232">				screen.setText(enterTerm);</span>
+<span class="nc" id="L233">			}</span>
+		});
+		
+<span class="fc" id="L236">		isfeatureenvy = new JButton(&quot; is_feature_envy&quot;);</span>
+<span class="fc" id="L237">		isfeatureenvy.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L239">				String enterTerm =screen.getText() + isfeatureenvy.getText();</span>
+<span class="nc" id="L240">				screen.setText(enterTerm);</span>
+<span class="nc" id="L241">			}</span>
+		});
+		
+<span class="fc" id="L244">		islongmethod = new JButton(&quot; is_long_method&quot;);</span>
+<span class="fc" id="L245">		islongmethod.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L247">				String enterTerm = screen.getText() + islongmethod.getText();</span>
+<span class="nc" id="L248">				screen.setText(enterTerm);</span>
+<span class="nc" id="L249">			}</span>
+		});
+		
+<span class="fc" id="L252">		loc = new JButton(&quot; LOC&quot;);</span>
+<span class="fc" id="L253">		loc.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L255">				String enterTerm = screen.getText() + loc.getText();</span>
+<span class="nc" id="L256">				screen.setText(enterTerm);</span>
+<span class="nc" id="L257">			}</span>
+		});
+		
+<span class="fc" id="L260">		cyclo = new JButton(&quot; CYCLO&quot;);</span>
+<span class="fc" id="L261">		cyclo.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L263">				String enterTerm = screen.getText() + cyclo.getText();</span>
+<span class="nc" id="L264">				screen.setText(enterTerm);</span>
+<span class="nc" id="L265">			}</span>
+		});
+		
+<span class="fc" id="L268">		atfd = new JButton(&quot; ATFD&quot;);</span>
+<span class="fc" id="L269">		atfd.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L271">				String enterTerm = screen.getText() + atfd.getText();</span>
+<span class="nc" id="L272">				screen.setText(enterTerm);</span>
+<span class="nc" id="L273">			}</span>
+		});
+		
+<span class="fc" id="L276">		laa = new JButton(&quot; LAA&quot;);</span>
+<span class="fc" id="L277">		laa.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L279">				String enterTerm = screen.getText() + laa.getText();</span>
+<span class="nc" id="L280">				screen.setText(enterTerm);</span>
+<span class="nc" id="L281">			}</span>
+		});
+		
+<span class="fc" id="L284">		open = new JButton(&quot; (&quot;);</span>
+<span class="fc" id="L285">		open.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L287">				String enterTerm = screen.getText() + open.getText();</span>
+<span class="nc" id="L288">				screen.setText(enterTerm);</span>
+<span class="nc" id="L289">			}</span>
+		});
+		
+<span class="fc" id="L292">		close = new JButton(&quot; )&quot;);</span>
+<span class="fc" id="L293">		close.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L295">				String enterTerm = screen.getText() + close.getText();</span>
+<span class="nc" id="L296">				screen.setText(enterTerm);</span>
+<span class="nc" id="L297">			}</span>
+		});
+		
+		/**
+		 * adicionar os botões ao painel de vizualização
+		 */
+		
+<span class="fc" id="L304">		terms.add(and);</span>
+<span class="fc" id="L305">		terms.add(smaller);</span>
+<span class="fc" id="L306">		terms.add(telse);</span>
+<span class="fc" id="L307">		terms.add(or);</span>
+<span class="fc" id="L308">		terms.add(equal);</span>
+<span class="fc" id="L309">		terms.add(ttrue);</span>
+<span class="fc" id="L310">		terms.add(tif);</span>
+<span class="fc" id="L311">		terms.add(tfalse);</span>
+<span class="fc" id="L312">		terms.add(bigger);</span>
+<span class="fc" id="L313">		terms.add(tso);</span>
+<span class="fc" id="L314">		terms.add(isfeatureenvy);</span>
+<span class="fc" id="L315">		terms.add(islongmethod);</span>
+<span class="fc" id="L316">		terms.add(loc);</span>
+<span class="fc" id="L317">		terms.add(cyclo);</span>
+<span class="fc" id="L318">		terms.add(atfd);</span>
+<span class="fc" id="L319">		terms.add(laa);</span>
+<span class="fc" id="L320">		terms.add(open);</span>
+<span class="fc" id="L321">		terms.add(close);</span>
+		
+<span class="fc" id="L323">		cpainel.add(terms);</span>
+		
+		
+		/**
+		 * criação de painel com as ações do utilizador
+		 * opçoes de submeter ou apagar
+		 */
+		//Painel com as ações
+<span class="fc" id="L331">		JPanel actions = new JPanel();</span>
+<span class="fc" id="L332">		actions.setLayout(new GridLayout(2,1));</span>
+<span class="fc" id="L333">		JButton submit = new JButton(&quot;Submeter&quot;);</span>
+<span class="fc" id="L334">		submit.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L336">				String regra = screen.getText();</span>
+<span class="nc" id="L337">				String posicao[] = regra.split(&quot; IF &quot;);</span>
+<span class="nc" id="L338">				String posicao1[] = posicao[1].split(&quot; THEN &quot;);</span>
+<span class="nc" id="L339">				String temporary1= posicao1[0].replace(&quot;( &quot;,&quot;&quot;);</span>
+<span class="nc" id="L340">				main = temporary1.replace(&quot; )&quot;,&quot;&quot;);</span>
+<span class="nc" id="L341">				String posicao2 [] = posicao1[1].split(&quot; ELSE &quot;);</span>
+<span class="nc" id="L342">				String temporary2= posicao2[0].replace(&quot;( &quot;, &quot;&quot;);</span>
+<span class="nc" id="L343">				THENfinal= temporary2.replace(&quot; )&quot;, &quot;&quot;); </span>
+<span class="nc" id="L344">				String temporary3= posicao2[1].replace(&quot;( &quot;, &quot;&quot;);</span>
+<span class="nc" id="L345">				ELSEfinal= temporary3.replace(&quot; )&quot;, &quot;&quot;);</span>
+<span class="nc" id="L346">				construcaoRegra(main, THENfinal, ELSEfinal);</span>
+<span class="nc" id="L347">			}</span>
+
+			private void construcaoRegra(String main, String THENfinal, String ELSEfinal) {
+<span class="nc bnc" id="L350" title="All 4 branches missed.">				if(main.contains(&quot;AND&quot;) &amp;&amp; main.contains(&quot;OR&quot;)) {</span>
+<span class="nc" id="L351">					char c1 = 'O';</span>
+<span class="nc" id="L352">					char c2 = 'R';</span>
+<span class="nc" id="L353">					int indice = 0;</span>
+<span class="nc bnc" id="L354" title="All 2 branches missed.">					for(int i=0; i!=main.length();i++) {</span>
+<span class="nc bnc" id="L355" title="All 4 branches missed.">						if(main.charAt(i)==c1 &amp;&amp; main.charAt(i+1)==c2) {</span>
+<span class="nc" id="L356">							indice=i;</span>
+<span class="nc" id="L357">							break;</span>
+						}
+					}
+<span class="nc" id="L360">					String main1 = main.substring(0, indice);</span>
+<span class="nc" id="L361">					String main2 = main.substring(indice+3, main.length());</span>
+<span class="nc" id="L362">					Regra r1 = new Regra(main1,THENfinal,ELSEfinal);</span>
+<span class="nc" id="L363">					Regra r2 = new Regra(main2,THENfinal,ELSEfinal);</span>
+<span class="nc" id="L364">					regras.add(r1);</span>
+<span class="nc" id="L365">					regras.add(r2);</span>
+					
+<span class="nc" id="L367">				} else {</span>
+<span class="nc" id="L368">					Regra r3 = new Regra(main,THENfinal,ELSEfinal);</span>
+<span class="nc" id="L369">					regras.add(r3);</span>
+				}
+<span class="nc" id="L371">			}</span>
+		});
+		
+		
+<span class="fc" id="L375">		JButton clean = new JButton(&quot;Apagar&quot;);</span>
+<span class="fc" id="L376">		clean.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				
+<span class="nc bnc" id="L379" title="All 2 branches missed.">				if(screen.getText().length() &gt; 0) {</span>
+							
+<span class="nc" id="L381">					String regra = screen.getText();</span>
+					
+<span class="nc" id="L383">					ArrayList&lt;String&gt; arr = new ArrayList&lt;String&gt;(Arrays.asList(regra.split(&quot; &quot;)));</span>
+
+<span class="nc bnc" id="L385" title="All 2 branches missed.">					if(arr!=null) {</span>
+<span class="nc bnc" id="L386" title="All 2 branches missed.">						if(arr.size() &gt; 0) {</span>
+<span class="nc" id="L387">							arr.remove(arr.size() -1);</span>
+						}
+					}
+					
+<span class="nc" id="L391">					String apagado = String.join(&quot; &quot;, arr);</span>
+
+<span class="nc" id="L393">					screen.setText(apagado);</span>
+				}
+				
+<span class="nc" id="L396">			}</span>
+		});
+		
+<span class="fc" id="L399">		JButton finalizar = new JButton(&quot;Finalizar&quot;);</span>
+<span class="fc" id="L400">		finalizar.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+<span class="nc" id="L404">					ResultDisplay rd = new ResultDisplay(string, regras, records);</span>
+<span class="nc" id="L405">				} catch(Exception e1) {</span>
+					
+				}
+<span class="nc" id="L408">			}</span>
+		});
+		
+<span class="fc" id="L411">		actions.add(submit);</span>
+<span class="fc" id="L412">		actions.add(clean);</span>
+<span class="fc" id="L413">		actions.add(finalizar);</span>
+<span class="fc" id="L414">		cpainel.add(actions);</span>
+<span class="fc" id="L415">		calculator.add(cpainel, BorderLayout.CENTER);</span>
+			
+		
+<span class="fc" id="L418">		JLabel inserir = new JLabel (&quot;Insira os valores de limiares pretendidos&quot;);</span>
+<span class="fc" id="L419">		factors.add(inserir,BorderLayout.NORTH);</span>
+		
+<span class="fc" id="L421">		JLabel labelloc = new JLabel(&quot;LOC&quot;);</span>
+<span class="fc" id="L422">		JLabel labelcyclo = new JLabel(&quot;CYCLO&quot;);</span>
+<span class="fc" id="L423">		JLabel labelatfd = new JLabel(&quot;ATFD&quot;);</span>
+<span class="fc" id="L424">		JLabel labellaa = new JLabel(&quot;LAA&quot;);</span>
+		
+<span class="fc" id="L426">		limloc = new JTextField();</span>
+<span class="fc" id="L427">		limloc.setText(&quot;0&quot;);</span>
+<span class="fc" id="L428">		limlocLer=&quot;0&quot;;</span>
+<span class="fc" id="L429">		limcyclo = new JTextField();</span>
+<span class="fc" id="L430">		limcyclo.setText(&quot;0&quot;);</span>
+<span class="fc" id="L431">		limcycloLer=&quot;0&quot;;</span>
+<span class="fc" id="L432">		limatfd = new JTextField();</span>
+<span class="fc" id="L433">		limatfd.setText(&quot;0&quot;);</span>
+<span class="fc" id="L434">		limatfdLer=&quot;0&quot;;</span>
+<span class="fc" id="L435">		limlaa = new JTextField();</span>
+<span class="fc" id="L436">		limlaa.setText(&quot;0&quot;);</span>
+<span class="fc" id="L437">		limlaaLer=&quot;0&quot;;</span>
+		
+<span class="fc" id="L439">		JButton guardarLOC =new JButton(&quot;Guardar&quot;);</span>
+<span class="fc" id="L440">		guardarLOC.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L442">				limlocLer=limloc.getText();</span>
+<span class="nc" id="L443">			}</span>
+		});
+		
+<span class="fc" id="L446">		JButton guardarCYCLO=new JButton(&quot;Guardar&quot;);</span>
+<span class="fc" id="L447">		guardarCYCLO.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L449">				limcycloLer=limcyclo.getText();</span>
+<span class="nc" id="L450">			}</span>
+		});
+		
+<span class="fc" id="L453">		JButton guardarATFD=new JButton(&quot;Guardar&quot;);</span>
+<span class="fc" id="L454">		guardarATFD.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L456">				limatfdLer=limatfd.getText();</span>
+<span class="nc" id="L457">			}</span>
+		});
+		
+		
+<span class="fc" id="L461">		JButton guardarLAA=new JButton(&quot;Guardar&quot;);</span>
+<span class="fc" id="L462">		guardarLAA.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L464">				limlaaLer=limlaa.getText();</span>
+<span class="nc" id="L465">			}</span>
+		});
+		
+		
+		/**
+		 * introdução de todos os botões nas respetivas posições
+		 */
+<span class="fc" id="L472">		thresholdsPanel.add(labelloc,0);</span>
+<span class="fc" id="L473">		thresholdsPanel.add(limloc,1);</span>
+<span class="fc" id="L474">		thresholdsPanel.add(guardarLOC,2);</span>
+<span class="fc" id="L475">		thresholdsPanel.add(labelcyclo,3);</span>
+<span class="fc" id="L476">		thresholdsPanel.add(limcyclo,4);</span>
+<span class="fc" id="L477">		thresholdsPanel.add(guardarCYCLO,5);</span>
+<span class="fc" id="L478">		thresholdsPanel.add(labelatfd,6);</span>
+<span class="fc" id="L479">		thresholdsPanel.add(limatfd,7);</span>
+<span class="fc" id="L480">		thresholdsPanel.add(guardarATFD,8);</span>
+<span class="fc" id="L481">		thresholdsPanel.add(labellaa,9);</span>
+<span class="fc" id="L482">		thresholdsPanel.add(limlaa,10);</span>
+<span class="fc" id="L483">		thresholdsPanel.add(guardarLAA,11);</span>
+				
+<span class="fc" id="L485">		limloc.setSize(20,20);</span>
+<span class="fc" id="L486">		limcyclo.setSize(20,20);</span>
+<span class="fc" id="L487">		limatfd.setSize(20,20);</span>
+<span class="fc" id="L488">		limlaa.setSize(20,20);</span>
+		
+<span class="fc" id="L490">		frame.setVisible(true);</span>
+<span class="fc" id="L491">	}</span>
+}
+		
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

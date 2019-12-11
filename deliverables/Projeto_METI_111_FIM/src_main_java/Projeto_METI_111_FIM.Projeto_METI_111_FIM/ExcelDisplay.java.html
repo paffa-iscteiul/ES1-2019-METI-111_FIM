@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ExcelDisplay.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">ExcelDisplay.java</span></div><h1>ExcelDisplay.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import java.io.IOException;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+/**
+* Esta classe permite a leitura e visualização do ficheiro excel
+*
+* @author  Pedro Fonseca, Fábio Cardoso, Filipa Gomes, Inês Gomes, Sofia Pérsio, Marco Silva
+*/
+public class ExcelDisplay {
+
+	private JTable table;
+	private JScrollPane sp;
+	private String [] [] data; 
+<span class="fc" id="L18">	private static ExcelDisplay INSTANCE = null;</span>
+	
+	/**
+	 * Inicializa todos os parametros do Display
+	 * @param excel
+	 */
+<span class="fc" id="L24">	public ExcelDisplay(ReadExcel excel) {		</span>
+		//Column Names
+<span class="fc" id="L26">		String [] columnNames = excel.getColumnNames();</span>
+		
+		//Excel Data
+<span class="fc" id="L29">		data = excel.getData();</span>
+		
+		//Initializing the JTable
+<span class="fc" id="L32">		table = new JTable(data, columnNames);</span>
+<span class="fc" id="L33">		table.setBounds(30, 40, 200, 300);</span>
+		
+		//Adding it to JScrollPane
+<span class="fc" id="L36">		sp = new JScrollPane(table);</span>
+<span class="fc" id="L37">	}</span>
+	
+
+	/**
+	 * startInstance(ReadExcel readExcel)
+	 * getInstance()
+	 * Foi criada uma instância de display para que o display 
+	 * seja de fácil acesso e facilmente actualizavel
+	 * @param readExcel
+	 * @return Instância do Display
+	 */
+	public static ExcelDisplay startInstance(ReadExcel readExcel) {
+<span class="fc bfc" id="L49" title="All 2 branches covered.">		if(INSTANCE == null) {</span>
+<span class="fc" id="L50">	         INSTANCE = new ExcelDisplay(readExcel);</span>
+	      }
+<span class="fc" id="L52">	      return INSTANCE;</span>
+	}
+	
+
+	/**
+	 * getInstance() Devolve a instância de ExcelDisplay
+	 * @return INSTANCE
+	 */
+	public static ExcelDisplay getInstance() {
+<span class="fc" id="L61">		return INSTANCE;</span>
+	}
+
+	/**
+	 * getJ() Devolve a tabela
+	 * @return table tabela excel
+	 */
+	public JTable getJ() {
+<span class="fc" id="L69">		return table;</span>
+	}
+
+	/**
+	 * setJ() Coloca tabela j no atributo table
+	 * @param j tabela a atributir ao atributo table
+	 */
+	public void setJ(JTable j) {
+<span class="fc" id="L77">		this.table = j;</span>
+<span class="fc" id="L78">	}</span>
+
+	/**
+	 * getSp() Devolve scrollpane
+	 * @return sp scrollpane
+	 */
+	public JScrollPane getSp() {
+<span class="fc" id="L85">		return sp;</span>
+	}
+	
+	/**
+	 * setSp() Coloca scrollpane sp no atributo sp
+	 * @param sp scrollpane
+	 */	
+	public void setSp(JScrollPane sp) {
+<span class="fc" id="L93">		this.sp = sp;</span>
+<span class="fc" id="L94">	}</span>
+	
+	/**
+	 * getData() Devolve a matriz de strings que representa a tabela
+	 * @return data matriz de strings que representa a tabela
+	 */
+	public String[][] getData() {
+<span class="fc" id="L101">		return data;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

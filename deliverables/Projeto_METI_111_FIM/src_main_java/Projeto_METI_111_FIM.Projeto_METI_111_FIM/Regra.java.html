@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Regra.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">Regra.java</span></div><h1>Regra.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+/**
+* Esta classe permite definir uma estrutura de dados para a criação de regras
+*
+* @author  Pedro Fonseca, Fábio Cardoso, Filipa Gomes, Inês Gomes, Sofia Pérsio, Marco Silva
+*/
+public class Regra {
+	public int numero_de_regras;
+	public String[] vetor_metricas;
+	public String entao;
+	public String senao;
+	public String op;
+	public String metricas;
+	
+	
+	/**
+	 * Construtor da classe
+	 * Recebe o corpo de IF, recebe medidas a adotar em caso de regra verificada ou não
+	 * @param metricas metricas (corpo de IF)
+	 * @param metricas entao (corpo de THEN)
+	 * @param metricas senao (corpo de ELSE)
+	 */
+<span class="fc" id="L24">	public Regra (String metricas, String entao, String senao ) {</span>
+<span class="fc" id="L25">		this.entao = entao;</span>
+<span class="fc" id="L26">		this.senao=senao;</span>
+<span class="fc" id="L27">		this.metricas=metricas;</span>
+		
+<span class="fc" id="L29">		analisar_parametros(metricas);</span>
+		
+<span class="fc" id="L31">	}</span>
+	
+	/**
+	 * analisar_parametros() É um procedimento que permite o processamento dos valores recebidos na construção da instância
+	 * @param metricas
+	 */
+	public void analisar_parametros(String metricas) {
+<span class="fc" id="L38">		numero_de_regras=count_ocorrences(metricas);</span>
+<span class="fc" id="L39">		String metricas1 = metricas;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">			if(metricas.contains(&quot;OR&quot;)) {</span>
+<span class="fc" id="L41">				op=&quot;OR&quot;;</span>
+<span class="fc" id="L42">				metricas1 = metricas.replace(&quot;OR &quot;, &quot;&quot;);</span>
+			}
+<span class="fc bfc" id="L44" title="All 2 branches covered.">			if(metricas.contains(&quot;AND&quot;)) {</span>
+<span class="fc" id="L45">				op=&quot;AND&quot;;</span>
+<span class="fc" id="L46">				metricas1 = metricas.replace(&quot;AND &quot;, &quot;&quot;);</span>
+			}
+			
+<span class="fc" id="L49">			String aux[] = metricas1.split(&quot; &quot;);</span>
+<span class="fc" id="L50">			String metricas2[] = new String [aux.length / 3];</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">				for(int i = 0; i&lt;aux.length;i=i+3) {</span>
+<span class="fc" id="L52">					metricas2[i/3]= aux[i]+aux[i+1]+aux[i+2];</span>
+				}
+<span class="fc" id="L54">				vetor_metricas=metricas2 ;</span>
+<span class="fc" id="L55">	}</span>
+	
+	/**
+	 * count_ocorrences() É um procedimento que permite o cálculo do número de ocorrências de AND ou OR em m
+	 * @param m
+	 * @return count
+	 */
+	private int count_ocorrences(String m) {
+<span class="fc" id="L63">		String a1[]=m.split(&quot; &quot;);</span>
+<span class="fc" id="L64">		int n= a1.length;</span>
+<span class="fc" id="L65">		int count = 1 ;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">			for(int i = 0; i &lt;n; i++) {</span>
+<span class="fc bfc" id="L67" title="All 4 branches covered.">				if(a1[i].equals(&quot;AND&quot;)|| a1[i].equals(&quot;OR&quot;)) {</span>
+<span class="fc" id="L68">					count ++ ;</span>
+				}
+			}
+		
+		
+<span class="fc" id="L73">		return count;</span>
+	}
+
+	/**
+	 * getVetor_metricas() É uma função que retorna métricas a serem verificadas em forma de lista
+	 * @return vetor_metricas lista de métricas a serem verificadas
+	 */
+	public String[] getVetor_metricas() {
+<span class="fc" id="L81">		return vetor_metricas;</span>
+	}
+	
+	/**
+	 * getMetricas() É uma função que retorna métrica
+	 * @return metricas métrica
+	 */
+	public String getMetricas() {
+<span class="fc" id="L89">		return metricas;</span>
+	}
+	
+	/**
+	 * getEntao() É uma função que retorna o interior de THEN
+	 * @return entao 
+	 */
+	public String getEntao() {
+<span class="fc" id="L97">		return entao;</span>
+	}
+
+	/**
+	 * getSenao() É uma função que retorna o interior de ELSE
+	 * @return senao 
+	 */
+	public String getSenao() {
+<span class="fc" id="L105">		return senao;</span>
+	}
+	
+	/**
+	 * getOp() É uma função que retorna o operador da regra
+	 * @return op 
+	 */
+	public String getOp() {
+<span class="fc" id="L113">		return op;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

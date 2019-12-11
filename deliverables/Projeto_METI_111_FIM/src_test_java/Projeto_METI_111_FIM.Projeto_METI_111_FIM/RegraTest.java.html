@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>RegraTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">RegraTest.java</span></div><h1>RegraTest.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+<span class="fc" id="L11">class RegraTest {</span>
+
+	static Regra rule;
+	static Regra rule1; 
+
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L18">		rule = new Regra(&quot;CYCLO &lt; 3 AND ATFD &gt; 1&quot;, &quot;is_feature_envy = TRUE&quot;, &quot;is_feature_envy = FALSE&quot;);</span>
+<span class="fc" id="L19">		rule1 = new Regra(&quot;CYCLO &lt; 3 OR ATFD &gt; 1&quot;, &quot;is_feature_envy = TRUE&quot;, &quot;is_feature_envy = FALSE&quot;);</span>
+<span class="fc" id="L20">	}</span>
+
+	@Test
+	void testGetVetor_metricas() {
+<span class="fc" id="L24">		assertNotNull(rule.getVetor_metricas());</span>
+<span class="fc" id="L25">	}</span>
+
+	@Test
+	void testGetMetricas() {
+<span class="fc" id="L29">		assertNotNull(rule.getMetricas());</span>
+<span class="fc" id="L30">	}</span>
+
+	@Test
+	void testGetEntao() {
+<span class="fc" id="L34">		assertNotNull(rule.getEntao());</span>
+<span class="fc" id="L35">	}</span>
+
+	@Test
+	void testGetSenao() {
+<span class="fc" id="L39">		assertNotNull(rule.getSenao());</span>
+<span class="fc" id="L40">	}</span>
+
+	@Test
+	void testGetOp() {
+<span class="fc" id="L44">		assertNotNull(rule.getOp());</span>
+<span class="fc" id="L45">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>

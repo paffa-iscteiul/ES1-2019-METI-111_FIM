@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>OpenfileTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (11/12/2019 07:35:17)</a> &gt; <a href="../../index.html" class="el_group">Projeto_METI_111_FIM</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">Projeto_METI_111_FIM.Projeto_METI_111_FIM</a> &gt; <span class="el_source">OpenfileTest.java</span></div><h1>OpenfileTest.java</h1><pre class="source lang-java linenums">package Projeto_METI_111_FIM.Projeto_METI_111_FIM;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+<span class="fc" id="L12">class OpenfileTest {</span>
+
+	static Interface1 int1;
+	static Openfile opf;
+
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+<span class="fc" id="L19">		int1 = new Interface1();</span>
+<span class="fc" id="L20">	}</span>
+
+	@AfterAll
+	static void tearDownAfterClass() throws Exception {
+<span class="fc" id="L24">	}</span>
+
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L28">	}</span>
+
+	@AfterEach
+	void tearDown() throws Exception {
+<span class="fc" id="L32">	}</span>
+
+	@Test
+	void testOpenfile() {
+<span class="fc" id="L36">		opf = new Openfile(int1);</span>
+<span class="fc" id="L37">	}</span>
+
+	@Test
+	void testBrowser() throws Exception {
+<span class="pc" id="L41">		assertThrows(Exception.class, () -&gt; opf.Browser());</span>
+<span class="fc" id="L42">	}</span>
+
+	@Test
+	void testGetRecords() {
+<span class="fc" id="L46">		assertNotNull(opf.getRecords());</span>
+<span class="fc" id="L47">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>AllTests (1) (11/12/2019 07:35:17)</div></body></html>
