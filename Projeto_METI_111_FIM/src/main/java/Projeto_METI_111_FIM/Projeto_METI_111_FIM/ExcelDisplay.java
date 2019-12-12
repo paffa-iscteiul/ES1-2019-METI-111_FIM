@@ -47,7 +47,7 @@ public class ExcelDisplay {
 	 */
 	public static ExcelDisplay startInstance(ReadExcel readExcel) {
 		if(INSTANCE == null) {
-	         INSTANCE = new ExcelDisplay(readExcel);
+	          INSTANCE = new ExcelDisplay(readExcel);
 	      }
 	      return INSTANCE;
 	}
